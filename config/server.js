@@ -58,7 +58,7 @@ module.exports = {
 	themeAssetsUploadUrl: '/assets/images',
 
 	// store UI language
-	language: 'en',
+	language: 'vi_VN',
 
 	// used by API
 	orderStartNumber: 1000,
