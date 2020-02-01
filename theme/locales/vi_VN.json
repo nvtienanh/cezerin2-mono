@@ -74,6 +74,7 @@
   "state": "State/Province",
   "city": "City",
   "fullName": "Full name",
+  "full_name": "Họ và tên",
   "first_name": "First Name",
   "last_name": "Last Name",
   "address1": "Address line 1",

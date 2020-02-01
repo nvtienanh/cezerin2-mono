@@ -54,6 +54,7 @@ class CheckoutStepContacts extends React.Component {
 			this.props.initialize({
 				first_name: this.props.customerProperties.customer_settings.first_name,
 				last_name: this.props.customerProperties.customer_settings.last_name,
+				full_name: this.props.customerProperties.customer_settings.full_name,
 				email: this.props.customerProperties.customer_settings.email,
 				billing_address: {
 					address1:
@@ -188,6 +189,9 @@ class CheckoutStepContacts extends React.Component {
 			return field.label;
 		} else {
 			switch (fieldName) {
+				case 'full_name':
+					return text.full_name;
+					break;
 				case 'first_name':
 					return text.first_name;
 					break;
@@ -283,7 +287,7 @@ class CheckoutStepContacts extends React.Component {
 						<ReadOnlyField
 							step={step}
 							name={text.full_name}
-							value={`${initialValues.first_name} ${initialValues.last_name}`}
+							value={initialValues.full_name}
 						/>
 					)}
 					{this.isFieldHidden('first_name') && (
@@ -459,6 +463,20 @@ class CheckoutStepContacts extends React.Component {
 						{title}
 					</h1>
 					<form onSubmit={handleSubmit}>
+						{!this.isFieldHidden('full_name') && (
+							<Field
+								className={inputClassName}
+								name="full_name"
+								id="customer.full_name"
+								autoComplete="new-password"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('full_name')}
+								validate={this.getFieldValidators('full_name')}
+								placeholder={this.getFieldPlaceholder('full_name')}
+							/>
+						)}
+
 						{!this.isFieldHidden('first_name') && (
 							<Field
 								className={inputClassName}

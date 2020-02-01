@@ -47,10 +47,10 @@ export default class CheckoutForm extends React.Component {
 
 	handleContactsSubmit = values => {
 		let { shipping_address, billing_address } = values;
-		shipping_address.full_name = `${values.first_name} ${values.last_name}`;
+		shipping_address.full_name = values.full_name;
 		this.props.updateCart(
 			{
-				full_name: `${values.first_name} ${values.last_name}`,
+				full_name: values.full_name,
 				first_name: values.first_name,
 				last_name: values.last_name,
 				email: values.email,
@@ -98,7 +98,7 @@ export default class CheckoutForm extends React.Component {
 	handleShippingSubmit = values => {
 		if (this.isShowPaymentForm()) {
 			let { shipping_address, billing_address, comments } = values;
-			shipping_address.full_name = `${values.first_name} ${values.last_name}`;
+			shipping_address.full_name = values.full_name;
 
 			this.props.updateCart({
 				shipping_address,

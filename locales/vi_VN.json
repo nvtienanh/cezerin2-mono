@@ -20,6 +20,7 @@
   "city": "Tỉnh/Thành phố",
   "comments": "Comments",
   "fullName": "Full name",
+  "full_name": "Full Name",
   "first_name": "First Name",
   "last_name": "Last Name",
   "password": "Password",
