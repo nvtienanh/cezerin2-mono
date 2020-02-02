@@ -82,6 +82,21 @@ class CheckoutStepContacts extends React.Component {
 							? this.props.customerProperties.customer_settings.addresses[0]
 									.state
 							: '',
+					ward:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.ward
+							: '',
+					district:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.district
+							: '',
+					province:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.province
+							: '',
 					country:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
@@ -113,6 +128,21 @@ class CheckoutStepContacts extends React.Component {
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[1]
 									.state
+							: '',
+					ward:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.ward
+							: '',
+					district:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.district
+							: '',
+					province:
+						this.props.customerProperties.customer_settings.addresses.length > 0
+							? this.props.customerProperties.customer_settings.addresses[0]
+									.province
 							: '',
 					country:
 						this.props.customerProperties.customer_settings.addresses.length > 0
@@ -218,6 +248,15 @@ class CheckoutStepContacts extends React.Component {
 					break;
 				case 'country':
 					return text.country;
+					break;
+				case 'province':
+					return text.province;
+					break;
+				case 'district':
+					return text.district;
+					break;
+				case 'ward':
+					return text.ward;
 					break;
 				case 'state':
 					return text.state;
@@ -337,6 +376,27 @@ class CheckoutStepContacts extends React.Component {
 							step={step}
 							name={text.country}
 							value={initialValues.shipping_address.country}
+						/>
+					)}
+					{!this.isFieldHidden('province') && (
+						<ReadOnlyField
+							step={step}
+							name={text.province}
+							value={initialValues.shipping_address.province}
+						/>
+					)}
+					{!this.isFieldHidden('district') && (
+						<ReadOnlyField
+							step={step}
+							name={text.district}
+							value={initialValues.shipping_address.district}
+						/>
+					)}
+					{!this.isFieldHidden('ward') && (
+						<ReadOnlyField
+							step={step}
+							name={text.ward}
+							value={initialValues.shipping_address.ward}
 						/>
 					)}
 					{!this.isFieldHidden('state') && (
@@ -615,6 +675,45 @@ class CheckoutStepContacts extends React.Component {
 								label={this.getFieldLabel('country')}
 								validate={this.getFieldValidators('country')}
 								placeholder={this.getFieldPlaceholder('country')}
+							/>
+						)}
+
+						{!this.isFieldHidden('province') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.province"
+								id="shipping_address.province"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('province')}
+								validate={this.getFieldValidators('province')}
+								placeholder={this.getFieldPlaceholder('province')}
+							/>
+						)}
+
+						{!this.isFieldHidden('district') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.district"
+								id="shipping_address.district"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('district')}
+								validate={this.getFieldValidators('district')}
+								placeholder={this.getFieldPlaceholder('district')}
+							/>
+						)}
+
+						{!this.isFieldHidden('ward') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.ward"
+								id="shipping_address.ward"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('ward')}
+								validate={this.getFieldValidators('ward')}
+								placeholder={this.getFieldPlaceholder('ward')}
 							/>
 						)}
 
