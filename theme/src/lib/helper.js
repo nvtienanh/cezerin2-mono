@@ -172,3 +172,7 @@ export const getShippingFieldLabel = ({ label, key }) =>
 
 export const getCheckoutFieldLabel = ({ label, name }) =>
 	label && label.length > 0 ? label : getFieldLabelByKey(name);
+
+export const getGeolocation = (Code, parentCode) =>{
+	return _getGeolocation(Code, parentCode)
+} 

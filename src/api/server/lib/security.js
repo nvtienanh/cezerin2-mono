@@ -39,7 +39,9 @@ const scope = {
 	READ_SETTINGS: 'read:settings',
 	WRITE_SETTINGS: 'write:settings',
 	READ_FILES: 'read:files',
-	WRITE_FILES: 'write:files'
+	WRITE_FILES: 'write:files',
+	READ_GEOLOCATION: 'read:geolocation',
+	WRITE_GEOLOCATION: 'write:geolocation'
 };
 
 const checkUserScope = (requiredScope, req, res, next) => {

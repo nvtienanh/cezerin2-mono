@@ -18,6 +18,7 @@ import RedirectsRoute from './routes/redirects';
 import FilesRoute from './routes/files';
 import AppsRoute from './routes/apps';
 import WebhooksRoute from './routes/webhooks';
+import ProvincesRoute from './routes/provinces';
 
 const apiRouter = express.Router();
 
@@ -40,5 +41,6 @@ new RedirectsRoute(apiRouter);
 new FilesRoute(apiRouter);
 new AppsRoute(apiRouter);
 new WebhooksRoute(apiRouter);
+new ProvincesRoute(apiRouter);
 
 export default apiRouter;

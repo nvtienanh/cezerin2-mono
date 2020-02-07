@@ -1,8 +1,9 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { themeSettings, text } from '../../lib/settings';
-import { formatCurrency } from '../../lib/helper';
+import { formatCurrency} from '../../lib/helper';
 import InputField from './inputField';
+import SelectField from './selectField';
 import Lscache from 'lscache';
 
 const validateRequired = value =>
@@ -27,6 +28,10 @@ const ReadOnlyField = ({ step, name, value }) => {
 		</div>
 	);
 };
+
+const provinces = [];
+const districts = [];
+const wards = [];
 
 class CheckoutStepContacts extends React.Component {
 	constructor(props) {
@@ -689,6 +694,15 @@ class CheckoutStepContacts extends React.Component {
 								validate={this.getFieldValidators('province')}
 								placeholder={this.getFieldPlaceholder('province')}
 							/>
+							// <Field
+							// 	className={inputClassName}
+							// 	name="shipping_address.province"
+							// 	id="shipping_address.province"
+							// 	label={this.getFieldLabel('province')}
+							// 	component={SelectField}
+							// 	// values={getGeolocation(null, null)}
+							// >
+							// </Field>
 						)}
 
 						{!this.isFieldHidden('district') && (
