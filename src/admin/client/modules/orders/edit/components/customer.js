@@ -58,13 +58,21 @@ const ShippingAddress = ({ order, settings }) => {
 					<div>{address.address1}</div>
 					<div>{address.address2}</div>
 					<div>
+						{address.ward},{' '}
+						{address.district && address.district.length > 0
+							? address.district + ', '
+							: ''}
+						{address.postal_code}
+					</div>
+					<div>{address.province}</div>
+					{/* <div>
 						{address.city},{' '}
 						{address.state && address.state.length > 0
 							? address.state + ', '
 							: ''}
 						{address.postal_code}
 					</div>
-					<div>{address.country}</div>
+					<div>{address.country}</div> */}
 					<div>{address.phone}</div>
 				</div>
 		</div>
@@ -75,12 +83,15 @@ const BillingAddress = ({ address, settings }) => {
 	const billinsAddressIsEmpty =
 		address.address1 === '' &&
 		address.address2 === '' &&
-		address.city === '' &&
+		// address.city === '' &&
+		address.ward === '' &&
 		address.company === '' &&
-		address.country === '' &&
+		// address.country === '' &&
+		address.province === '' &&
 		address.full_name === '' &&
 		address.phone === '' &&
-		address.state === '' &&
+		// address.state === '' &&
+		address.district === '' &&
 		address.tax_number === '' &&
 		address.postal_code === '';
 
@@ -124,14 +135,22 @@ const BillingAddress = ({ address, settings }) => {
 					<div>{address.company}</div>
 					<div>{address.address1}</div>
 					<div>{address.address2}</div>
-					<div>
+					{/* <div>
 						{address.city},{' '}
 						{address.state && address.state.length > 0
 							? address.state + ', '
 							: ''}
 						{address.postal_code}
 					</div>
-					<div>{address.country}</div>
+					<div>{address.country}</div> */}
+					<div>
+						{address.ward},{' '}
+						{address.district && address.district.length > 0
+							? address.district + ', '
+							: ''}
+						{address.postal_code}
+					</div>
+					<div>{address.province}</div>
 					<div>{address.phone}</div>
 				</div>
 			</div>
@@ -165,8 +184,8 @@ export default class OrderCustomer extends React.Component {
 
 		const allowEdit = order.closed === false && order.cancelled === false;
 		let mapAddress = `${order.shipping_address.address1} ${
-			order.shipping_address.city
-		} ${order.shipping_address.state} ${order.shipping_address.postal_code}`;
+			order.shipping_address.ward
+		} ${order.shipping_address.district} ${order.shipping_address.postal_code}`;
 		mapAddress = mapAddress.replace(/ /g, '+');
 		const mapUrl = `https://www.google.com/maps/place/${mapAddress}`;
 

@@ -48,7 +48,10 @@ const paymentNotification = options => {
 						amount: params.mc_gross,
 						currency: params.mc_currency,
 						status: params.payment_status,
-						details: `${params.first_name} ${params.last_name}, ${
+						// details: `${params.first_name} ${params.last_name}, ${
+						// 	params.payer_email
+						// }`,
+						details: `${params.full_name}, ${
 							params.payer_email
 						}`,
 						success: true

@@ -190,8 +190,8 @@ class CustomersService {
 		customer.email = parse.getString(data.email).toLowerCase();
 		customer.mobile = parse.getString(data.mobile).toLowerCase();
 		customer.full_name = parse.getString(data.full_name);
-		customer.first_name = parse.getString(data.first_name);
-		customer.last_name = parse.getString(data.last_name);
+		// customer.first_name = parse.getString(data.first_name);
+		// customer.last_name = parse.getString(data.last_name);
 		customer.password = parse.getString(data.password);
 		customer.gender = parse.getString(data.gender).toLowerCase();
 		customer.group_id = parse.getObjectIDIfValid(data.group_id);
@@ -241,13 +241,13 @@ class CustomersService {
 			customer.full_name = parse.getString(data.full_name);
 		}
 
-		if (data.first_name !== undefined) {
-			customer.first_name = parse.getString(data.first_name);
-		}
+		// if (data.first_name !== undefined) {
+		// 	customer.first_name = parse.getString(data.first_name);
+		// }
 
-		if (data.last_name !== undefined) {
-			customer.last_name = parse.getString(data.last_name);
-		}
+		// if (data.last_name !== undefined) {
+		// 	customer.last_name = parse.getString(data.last_name);
+		// }
 
 		if (data.password !== undefined) {
 			customer.password = parse.getString(data.password);
@@ -353,18 +353,29 @@ class CustomersService {
 			fields['addresses.$.address2'] = parse.getString(address.address2);
 		}
 
-		if (address.city !== undefined) {
-			fields['addresses.$.city'] = parse.getString(address.city);
+		// if (address.city !== undefined) {
+		// 	fields['addresses.$.city'] = parse.getString(address.city);
+		// }
+
+		if (address.ward !== undefined) {
+			fields['addresses.$.ward'] = parse.getString(address.ward);
 		}
 
-		if (address.country !== undefined) {
-			fields['addresses.$.country'] = parse
-				.getString(address.country)
-				.toUpperCase();
+		// if (address.country !== undefined) {
+		// 	fields['addresses.$.country'] = parse
+		// 		.getString(address.country)
+		// 		.toUpperCase();
+		// }
+		if (address.province !== undefined) {
+			fields['addresses.$.province'] = parse.getString(address.province);
 		}
 
-		if (address.state !== undefined) {
-			fields['addresses.$.state'] = parse.getString(address.state);
+		// if (address.state !== undefined) {
+		// 	fields['addresses.$.state'] = parse.getString(address.state);
+		// }
+
+		if (address.district !== undefined) {
+			fields['addresses.$.district'] = parse.getString(address.district);
 		}
 
 		if (address.phone !== undefined) {

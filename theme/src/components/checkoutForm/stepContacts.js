@@ -1,7 +1,8 @@
 import React from 'react';
+import api from '../../lib/api';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { themeSettings, text } from '../../lib/settings';
-import { formatCurrency} from '../../lib/helper';
+import { formatCurrency } from '../../lib/helper';
 import InputField from './inputField';
 import SelectField from './selectField';
 import Lscache from 'lscache';
@@ -29,10 +30,6 @@ const ReadOnlyField = ({ step, name, value }) => {
 	);
 };
 
-const provinces = [];
-const districts = [];
-const wards = [];
-
 class CheckoutStepContacts extends React.Component {
 	constructor(props) {
 		super(props);
@@ -41,7 +38,13 @@ class CheckoutStepContacts extends React.Component {
 			loggedin: false,
 			reinitialized: false,
 			emailValues: '',
-			comparePassword: ''
+			comparePassword: '',
+			provinces: [],
+			provinceId: null,
+			districts: [],
+			districtId: null,
+			wards: [],
+			wardId: null
 		};
 
 		this.setInitialValues = this.setInitialValues.bind(this);
@@ -51,109 +54,182 @@ class CheckoutStepContacts extends React.Component {
 		if (Lscache.get('auth_data') !== null) {
 			this.setState({ loggedin: true });
 		}
+		this.fetchProvinces()
 	}
+
+	onSelectProvince = (event) => {
+		let selectedValue = JSON.parse(event.target.value)
+		this.setState({
+			provinceId: selectedValue.id		
+		});
+		this.fetchDistricts(selectedValue.id)
+	}
+
+	onSelectDistrict = (event) => {
+		let selectedValue = JSON.parse(event.target.value)
+		this.setState({
+			districtId: selectedValue.id			
+		});
+		this.fetchWards(this.state.provinceId, selectedValue.id)
+	}
+
+	onSelectWard = (event) => {
+		let selectedValue = JSON.parse(event.target.value)
+		this.setState({
+			wardId: selectedValue.id				
+		});
+	}
+
+	fetchProvinces = () => {
+		api.ajax.provinces.listProvinces().then(({ status, json }) => {
+			this.setState({
+				provinces: json,
+				districts: [],
+				wards: [],
+				provinceId: null,
+				districtId: null,
+				wardId: null
+			});
+		});
+	};
+
+	fetchDistricts = (provinceId) => {
+		if (provinceId !== null){
+			api.ajax.provinces.listDistricts(provinceId).then(({ status, json }) => {
+				this.setState({
+					districts: json	,
+					wards: [],
+					districtId: null,
+					wardId: null		
+				});
+			});
+		}else{
+			this.setState({
+				districts: [],
+				wards: [],
+				districtId: null,
+				wardId: null			
+			});
+		}		
+	};
+
+	fetchWards = (provinceId, districtId) => {
+		if (provinceId !== null && districtId !== null){
+			api.ajax.provinces.listWards(provinceId, districtId).then(({ status, json }) => {
+				this.setState({
+					wards: json,
+					wardId: null			
+				});
+			});
+		}else{
+			this.setState({
+				wards: [],
+				wardId: null				
+			});
+		}		
+	};
 
 	setInitialValues() {
 		Lscache.flushExpired();
 		if (Lscache.get('auth_data') !== null) {
 			this.props.initialize({
-				first_name: this.props.customerProperties.customer_settings.first_name,
-				last_name: this.props.customerProperties.customer_settings.last_name,
+				// first_name: this.props.customerProperties.customer_settings.first_name,
+				// last_name: this.props.customerProperties.customer_settings.last_name,
 				full_name: this.props.customerProperties.customer_settings.full_name,
 				email: this.props.customerProperties.customer_settings.email,
 				billing_address: {
 					address1:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.address1
+								.address1
 							: '',
 					address2:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.address2
+								.address2
 							: '',
-					city:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[0]
-									.city
-							: '',
+					// city:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[0]
+					// 				.city
+					// 		: '',
 					postal_code:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.postal_code
+								.postal_code
 							: '',
-					state:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[0]
-									.state
-							: '',
+					// state:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[0]
+					// 				.state
+					// 		: '',
 					ward:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.ward
+								.ward
 							: '',
 					district:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.district
+								.district
 							: '',
 					province:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.province
-							: '',
-					country:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[0]
-									.country
+								.province
 							: ''
+					// country:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[0]
+					// 				.country
+					// 		: ''
 				},
 				shipping_address: {
 					address1:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[1]
-									.address1
+								.address1
 							: '',
 					address2:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[1]
-									.address2
+								.address2
 							: '',
-					city:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[1]
-									.city
-							: '',
+					// city:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[1]
+					// 				.city
+					// 		: '',
 					postal_code:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[1]
-									.postal_code
+								.postal_code
 							: '',
-					state:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[1]
-									.state
-							: '',
+					// state:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[1]
+					// 				.state
+					// 		: '',
 					ward:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.ward
+								.ward
 							: '',
 					district:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.district
+								.district
 							: '',
 					province:
 						this.props.customerProperties.customer_settings.addresses.length > 0
 							? this.props.customerProperties.customer_settings.addresses[0]
-									.province
-							: '',
-					country:
-						this.props.customerProperties.customer_settings.addresses.length > 0
-							? this.props.customerProperties.customer_settings.addresses[1]
-									.country
+								.province
 							: ''
+					// country:
+					// 	this.props.customerProperties.customer_settings.addresses.length > 0
+					// 		? this.props.customerProperties.customer_settings.addresses[1]
+					// 				.country
+					// 		: ''
 				}
 			});
 		}
@@ -227,12 +303,12 @@ class CheckoutStepContacts extends React.Component {
 				case 'full_name':
 					return text.full_name;
 					break;
-				case 'first_name':
-					return text.first_name;
-					break;
-				case 'last_name':
-					return text.last_name;
-					break;
+				// case 'first_name':
+				// 	return text.first_name;
+				// 	break;
+				// case 'last_name':
+				// 	return text.last_name;
+				// 	break;
 				case 'email':
 					return text.email;
 					break;
@@ -251,9 +327,9 @@ class CheckoutStepContacts extends React.Component {
 				case 'address2':
 					return text.address2;
 					break;
-				case 'country':
-					return text.country;
-					break;
+				// case 'country':
+				// 	return text.country;
+				// 	break;
 				case 'province':
 					return text.province;
 					break;
@@ -263,12 +339,12 @@ class CheckoutStepContacts extends React.Component {
 				case 'ward':
 					return text.ward;
 					break;
-				case 'state':
-					return text.state;
-					break;
-				case 'city':
-					return text.city;
-					break;
+				// case 'state':
+				// 	return text.state;
+				// 	break;
+				// case 'city':
+				// 	return text.city;
+				// 	break;
 				case 'postal_code':
 					return text.postal_code;
 					break;
@@ -334,7 +410,7 @@ class CheckoutStepContacts extends React.Component {
 							value={initialValues.full_name}
 						/>
 					)}
-					{this.isFieldHidden('first_name') && (
+					{/* {this.isFieldHidden('first_name') && (
 						<ReadOnlyField
 							step={step}
 							name={text.first_name}
@@ -347,7 +423,7 @@ class CheckoutStepContacts extends React.Component {
 							name={text.last_name}
 							value={initialValues.last_name}
 						/>
-					)}
+					)} */}
 					{!this.isFieldHidden('email') && (
 						<ReadOnlyField
 							step={step}
@@ -376,18 +452,18 @@ class CheckoutStepContacts extends React.Component {
 							value={initialValues.shipping_address.address2}
 						/>
 					)}
-					{!this.isFieldHidden('country') && (
+					{/* {!this.isFieldHidden('country') && (
 						<ReadOnlyField
 							step={step}
 							name={text.country}
 							value={initialValues.shipping_address.country}
 						/>
-					)}
-					{!this.isFieldHidden('province') && (
+					)} */}
+					{!this.isFieldHidden('ward') && (
 						<ReadOnlyField
 							step={step}
-							name={text.province}
-							value={initialValues.shipping_address.province}
+							name={text.ward}
+							value={initialValues.shipping_address.ward}
 						/>
 					)}
 					{!this.isFieldHidden('district') && (
@@ -397,20 +473,20 @@ class CheckoutStepContacts extends React.Component {
 							value={initialValues.shipping_address.district}
 						/>
 					)}
-					{!this.isFieldHidden('ward') && (
+					{!this.isFieldHidden('province') && (
 						<ReadOnlyField
 							step={step}
-							name={text.ward}
-							value={initialValues.shipping_address.ward}
+							name={text.province}
+							value={initialValues.shipping_address.province}
 						/>
-					)}
-					{!this.isFieldHidden('state') && (
+					)}					
+					{/* {!this.isFieldHidden('state') && (
 						<ReadOnlyField
 							step={step}
 							name={text.state}
 							value={initialValues.shipping_address.state}
 						/>
-					)}
+					)} */}
 					{!this.isFieldHidden('postal_code') && (
 						<ReadOnlyField
 							step={step}
@@ -418,13 +494,13 @@ class CheckoutStepContacts extends React.Component {
 							value={initialValues.shipping_address.postal_code}
 						/>
 					)}
-					{!this.isFieldHidden('city') && (
+					{/* {!this.isFieldHidden('city') && (
 						<ReadOnlyField
 							step={step}
 							name={text.city}
 							value={initialValues.shipping_address.city}
 						/>
-					)}
+					)} */}
 					<ReadOnlyField
 						step={step}
 						name={text.shippingMethod}
@@ -542,7 +618,7 @@ class CheckoutStepContacts extends React.Component {
 							/>
 						)}
 
-						{!this.isFieldHidden('first_name') && (
+						{/* {!this.isFieldHidden('first_name') && (
 							<Field
 								className={inputClassName}
 								name="first_name"
@@ -568,7 +644,7 @@ class CheckoutStepContacts extends React.Component {
 								validate={this.getFieldValidators('last_name')}
 								placeholder={this.getFieldPlaceholder('last_name')}
 							/>
-						)}
+						)} */}
 
 						{this.state.loggedin ? (
 							<ReadOnlyField
@@ -578,20 +654,20 @@ class CheckoutStepContacts extends React.Component {
 								label={this.getFieldLabel('email')}
 							/>
 						) : (
-							!this.isFieldHidden('email') && (
-								<Field
-									className={inputClassName}
-									name="email"
-									id="customer.email"
-									autoComplete="new-password"
-									component={InputField} //this.state.loggedin
-									type="email"
-									label={this.getFieldLabel('email')}
-									validate={this.getFieldValidators('email')}
-									placeholder={this.getFieldPlaceholder('email')}
-								/>
-							)
-						)}
+								!this.isFieldHidden('email') && (
+									<Field
+										className={inputClassName}
+										name="email"
+										id="customer.email"
+										autoComplete="new-password"
+										component={InputField} //this.state.loggedin
+										type="email"
+										label={this.getFieldLabel('email')}
+										validate={this.getFieldValidators('email')}
+										placeholder={this.getFieldPlaceholder('email')}
+									/>
+								)
+							)}
 
 						{!this.isFieldHidden('mobile') && (
 							<Field
@@ -610,41 +686,109 @@ class CheckoutStepContacts extends React.Component {
 						{this.state.loggedin
 							? this.isFieldHidden('password')
 							: !this.isFieldHidden('password') && (
-									<Field
-										className={inputClassName}
-										name="password"
-										id="customer.password"
-										autoComplete="new-password"
-										component={InputField}
-										type="password"
-										onBlur={this.passwordTemp}
-										label={
-											!this.state.loggedin ? this.getFieldLabel('password') : ''
-										}
-										validate={this.getFieldValidators('password')}
-										placeholder={this.getFieldPlaceholder('password')}
-									/>
-							  )}
+								<Field
+									className={inputClassName}
+									name="password"
+									id="customer.password"
+									autoComplete="new-password"
+									component={InputField}
+									type="password"
+									onBlur={this.passwordTemp}
+									label={
+										!this.state.loggedin ? this.getFieldLabel('password') : ''
+									}
+									validate={this.getFieldValidators('password')}
+									placeholder={this.getFieldPlaceholder('password')}
+								/>
+							)}
 
 						{this.state.loggedin
 							? this.isFieldHidden('password')
 							: !this.isFieldHidden('password') && (
-									<Field
-										className={inputClassName}
-										name="password_verify"
-										id="customer.password_verify"
-										autoComplete="new-password"
-										component={InputField}
-										type="password"
-										label={
-											!this.state.loggedin
-												? this.getFieldLabel('password_verify')
-												: ''
-										}
-										validate={this.getFieldValidators('password_verify')}
-										placeholder={this.getFieldPlaceholder('password_verify')}
-									/>
-							  )}
+								<Field
+									className={inputClassName}
+									name="password_verify"
+									id="customer.password_verify"
+									autoComplete="new-password"
+									component={InputField}
+									type="password"
+									label={
+										!this.state.loggedin
+											? this.getFieldLabel('password_verify')
+											: ''
+									}
+									validate={this.getFieldValidators('password_verify')}
+									placeholder={this.getFieldPlaceholder('password_verify')}
+								/>
+							)}						
+
+						{/* {!this.isFieldHidden('country') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.country"
+								id="shipping_address.country"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('country')}
+								validate={this.getFieldValidators('country')}
+								placeholder={this.getFieldPlaceholder('country')}
+							/>
+						)} */}
+
+						{!this.isFieldHidden('province') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.province"
+								id="shipping_address.province"
+								label={this.getFieldLabel('province')}
+								component={SelectField}
+								data={this.state.provinces}
+								onChange={this.onSelectProvince}
+							/>							
+						)}
+
+						{!this.isFieldHidden('district') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.district"
+								id="shipping_address.district"
+								component={SelectField}
+								// type="text"
+								label={this.getFieldLabel('district')}
+								data={this.state.districts}
+								onChange={this.onSelectDistrict}
+								// validate={this.getFieldValidators('district')}
+								// placeholder={this.getFieldPlaceholder('district')}
+							/>
+						)}
+
+						{!this.isFieldHidden('ward') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.ward"
+								id="shipping_address.ward"
+								component={SelectField}
+								// type="text"
+								label={this.getFieldLabel('ward')}
+								data={this.state.wards}
+								onChange={this.onSelectWard}
+								// validate={this.getFieldValidators('ward')}
+								// placeholder={this.getFieldPlaceholder('ward')}
+							/>
+						)}
+
+						{/* {!this.isFieldHidden('state') && (
+							<Field
+								className={inputClassName}
+								name="shipping_address.state"
+								id="shipping_address.state"
+								component={InputField}
+								type="text"
+								label={this.getFieldLabel('state')}
+								validate={this.getFieldValidators('state')}
+								placeholder={this.getFieldPlaceholder('state')}
+							/>
+						)} */}
 
 						{!this.isFieldHidden('address1') && (
 							<Field
@@ -658,6 +802,7 @@ class CheckoutStepContacts extends React.Component {
 								placeholder={this.getFieldPlaceholder('address1')}
 							/>
 						)}
+
 						{!this.isFieldHidden('address2') && (
 							<Field
 								className={inputClassName}
@@ -670,79 +815,6 @@ class CheckoutStepContacts extends React.Component {
 							/>
 						)}
 
-						{!this.isFieldHidden('country') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.country"
-								id="shipping_address.country"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('country')}
-								validate={this.getFieldValidators('country')}
-								placeholder={this.getFieldPlaceholder('country')}
-							/>
-						)}
-
-						{!this.isFieldHidden('province') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.province"
-								id="shipping_address.province"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('province')}
-								validate={this.getFieldValidators('province')}
-								placeholder={this.getFieldPlaceholder('province')}
-							/>
-							// <Field
-							// 	className={inputClassName}
-							// 	name="shipping_address.province"
-							// 	id="shipping_address.province"
-							// 	label={this.getFieldLabel('province')}
-							// 	component={SelectField}
-							// 	// values={getGeolocation(null, null)}
-							// >
-							// </Field>
-						)}
-
-						{!this.isFieldHidden('district') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.district"
-								id="shipping_address.district"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('district')}
-								validate={this.getFieldValidators('district')}
-								placeholder={this.getFieldPlaceholder('district')}
-							/>
-						)}
-
-						{!this.isFieldHidden('ward') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.ward"
-								id="shipping_address.ward"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('ward')}
-								validate={this.getFieldValidators('ward')}
-								placeholder={this.getFieldPlaceholder('ward')}
-							/>
-						)}
-
-						{!this.isFieldHidden('state') && (
-							<Field
-								className={inputClassName}
-								name="shipping_address.state"
-								id="shipping_address.state"
-								component={InputField}
-								type="text"
-								label={this.getFieldLabel('state')}
-								validate={this.getFieldValidators('state')}
-								placeholder={this.getFieldPlaceholder('state')}
-							/>
-						)}
 						{!this.isFieldHidden('postal_code') && (
 							<Field
 								className={inputClassName}
@@ -755,7 +827,7 @@ class CheckoutStepContacts extends React.Component {
 								placeholder={this.getFieldPlaceholder('postal_code')}
 							/>
 						)}
-						{!this.isFieldHidden('city') && (
+						{/* {!this.isFieldHidden('city') && (
 							<Field
 								className={inputClassName}
 								name="shipping_address.city"
@@ -766,7 +838,7 @@ class CheckoutStepContacts extends React.Component {
 								validate={this.getFieldValidators('city')}
 								placeholder={this.getFieldPlaceholder('city')}
 							/>
-						)}
+						)} */}
 
 						<div className="checkout-button-wrap">
 							<button

@@ -57,19 +57,36 @@ class PaymentMethodsService {
 							]
 						});
 
+						// if (
+						// 	order.shipping_address.country &&
+						// 	order.shipping_address.country.length > 0
+						// ) {
+						// 	filter['$and'].push({
+						// 		$or: [
+						// 			{
+						// 				'conditions.countries': {
+						// 					$size: 0
+						// 				}
+						// 			},
+						// 			{
+						// 				'conditions.countries': order.shipping_address.country
+						// 			}
+						// 		]
+						// 	});
+						// }
 						if (
-							order.shipping_address.country &&
-							order.shipping_address.country.length > 0
+							order.shipping_address.province &&
+							order.shipping_address.province.length > 0
 						) {
 							filter['$and'].push({
 								$or: [
 									{
-										'conditions.countries': {
+										'conditions.provinces': {
 											$size: 0
 										}
 									},
 									{
-										'conditions.countries': order.shipping_address.country
+										'conditions.provinces': order.shipping_address.province
 									}
 								]
 							});

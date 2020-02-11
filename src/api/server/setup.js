@@ -192,8 +192,8 @@ const addOrderConfirmationEmailTemplates = async db => {
 			  <b>Address 1</b>: {{shipping_address.address1}}<br />
 			  <b>Address 2</b>: {{shipping_address.address2}}<br />
 			  <b>Postal code</b>: {{shipping_address.postal_code}}<br />
-			  <b>City</b>: {{shipping_address.city}}<br />
-			  <b>State</b>: {{shipping_address.state}}<br />
+			  <b>City</b>: {{shipping_address.ward}}<br />
+			  <b>State</b>: {{shipping_address.district}}<br />
 			  <b>Phone</b>: {{shipping_address.phone}}
 			</div>
 		  
@@ -495,14 +495,14 @@ const createAllIndexes = async db => {
 		await createIndex(db, 'customers', { group_id: 1 });
 		await createIndex(db, 'customers', { email: 1 }, { unique: true });
 		await createIndex(db, 'customers', { mobile: 1 });
-		await createIndex(db, 'customers', { first_name: 1 });
-		await createIndex(db, 'customers', { last_name: 1 });
+		await createIndex(db, 'customers', { full_name: 1 });
+		// await createIndex(db, 'customers', { first_name: 1 });
+		// await createIndex(db, 'customers', { last_name: 1 });
 		await createIndex(db, 'customers', { password: 1 });
 		await createIndex(
 			db,
 			'customers',
 			{
-				full_name: 'text',
 				'addresses.address1': 'text'
 			},
 			{ default_language: DEFAULT_LANGUAGE, name: 'textIndex' }
@@ -521,8 +521,9 @@ const createAllIndexes = async db => {
 		await createIndex(db, 'orders', { customer_id: 1 });
 		await createIndex(db, 'orders', { email: 1 });
 		await createIndex(db, 'orders', { mobile: 1 });
-		await createIndex(db, 'orders', { first_name: 1 });
-		await createIndex(db, 'orders', { last_name: 1 });
+		await createIndex(db, 'orders', { full_name: 1 });
+		// await createIndex(db, 'orders', { first_name: 1 });
+		// await createIndex(db, 'orders', { last_name: 1 });
 		await createIndex(db, 'orders', { password: 1 });
 		await createIndex(
 			db,

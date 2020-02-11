@@ -116,6 +116,60 @@ ajaxRouter.get('/products/:id', (req, res) => {
 	);
 });
 
+ajaxRouter.get('/provinces', (req, res) => {
+	api.provinces.listProvinces().then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/provinces/:province_code', (req, res) => {
+	api.provinces.retrieveProvince(req.params.province_code).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/provinces/:province_code/districts', (req, res) => {
+	api.provinces.listDistricts(req.params.province_code).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/provinces/:province_code/districts/:district_code', (req, res) => {
+	api.provinces.retrieveDistrict(req.params.province_code, req.params.district_code).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/provinces/:province_code/districts/:district_code/wards', (req, res) => {
+	api.provinces.listWards(req.params.province_code, req.params.district_code).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
+ajaxRouter.get('/provinces/:province_code/districts/:district_code/wards/:ward_code', (req, res) => {
+	api.provinces.retrieveWard(req.params.province_code, req.params.district_code, req.params.ward_code).then(({ status, json }) =>
+		res
+			.status(status)
+			.header('Cache-Control', DEFAULT_CACHE_CONTROL)
+			.send(json)
+	);
+});
+
 ajaxRouter.get('/cart', (req, res) => {
 	const { order_id } = req.signedCookies;
 	if (order_id) {
@@ -353,12 +407,15 @@ ajaxRouter.post('/register', async (req, res, next) => {
 
 		(async () => {
 			// decode token parts and check if valid email is the second part of them
-			const firstName = await AuthHeader.decodeUserLoginAuth(
+			const fullName = await AuthHeader.decodeUserLoginAuth(
 				requestTokenArray[0]
 			).userId;
-			const lastName = await AuthHeader.decodeUserLoginAuth(
-				requestTokenArray[1]
-			).userId;
+			// const firstName = await AuthHeader.decodeUserLoginAuth(
+			// 	requestTokenArray[0]
+			// ).userId;
+			// const lastName = await AuthHeader.decodeUserLoginAuth(
+			// 	requestTokenArray[1]
+			// ).userId;
 			const eMail = await AuthHeader.decodeUserLoginAuth(requestTokenArray[2])
 				.userId;
 			const passWord = await AuthHeader.decodeUserPassword(requestTokenArray[3])
@@ -393,9 +450,9 @@ ajaxRouter.post('/register', async (req, res, next) => {
 			const hashPassword = bcrypt.hashSync(passWord, salt);
 
 			const customerDraft = {
-				full_name: `${firstName} ${lastName}`,
-				first_name: firstName,
-				last_name: lastName,
+				full_name: fullName,
+				// first_name: firstName,
+				// last_name: lastName,
 				email: eMail.toLowerCase(),
 				password: hashPassword
 			};
@@ -435,10 +492,15 @@ ajaxRouter.post('/register', async (req, res, next) => {
 				handlebars.compile(emailTemp.body),
 				SettingsService.getSettings()
 			]);
+			// const tokenConcatString = `${AuthHeader.encodeUserLoginAuth(
+			// 	req.body.first_name
+			// )}xXx${AuthHeader.encodeUserLoginAuth(
+			// 	req.body.last_name
+			// )}xXx${AuthHeader.encodeUserLoginAuth(req.body.email)}xXx${
+			// 	req.body.password
+			// }`;
 			const tokenConcatString = `${AuthHeader.encodeUserLoginAuth(
-				req.body.first_name
-			)}xXx${AuthHeader.encodeUserLoginAuth(
-				req.body.last_name
+				req.body.full_name
 			)}xXx${AuthHeader.encodeUserLoginAuth(req.body.email)}xXx${
 				req.body.password
 			}`;
@@ -494,9 +556,9 @@ ajaxRouter.put('/customer-account', async (req, res, next) => {
 		order_statuses: null
 	};
 	const customerDraftObj = {
-		full_name: `${customerData.first_name} ${customerData.last_name}`,
-		first_name: customerData.first_name,
-		last_name: customerData.last_name,
+		full_name: customerData.full_name,
+		// first_name: customerData.first_name,
+		// last_name: customerData.last_name,
 		email: customerData.email.toLowerCase(),
 		password: hashPassword,
 		addresses: [customerData.billing_address, customerData.shipping_address]
@@ -594,11 +656,16 @@ ajaxRouter.post('/cart/items', (req, res, next) => {
 					storeSettings.default_shipping_address1;
 				orderDraft.shipping_address.address2 =
 					storeSettings.default_shipping_address2;
-				orderDraft.shipping_address.country =
-					storeSettings.default_shipping_country;
-				orderDraft.shipping_address.state =
-					storeSettings.default_shipping_state;
-				orderDraft.shipping_address.city = storeSettings.default_shipping_city;
+				// orderDraft.shipping_address.country =
+				// 	storeSettings.default_shipping_country;
+				// orderDraft.shipping_address.state =
+				// 	storeSettings.default_shipping_state;
+				// orderDraft.shipping_address.city = storeSettings.default_shipping_city;
+				orderDraft.shipping_address.province =
+					storeSettings.default_shipping_province;
+				orderDraft.shipping_address.district =
+					storeSettings.default_shipping_district;
+				orderDraft.shipping_address.ward = storeSettings.default_shipping_ward;
 				orderDraft.item_tax_included = storeSettings.tax_included;
 				orderDraft.tax_rate = storeSettings.tax_rate;
 				return orderDraft;

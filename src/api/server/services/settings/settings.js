@@ -24,9 +24,12 @@ class SettingsService {
 			timezone: 'Asia/Singapore',
 			date_format: 'MMMM D, YYYY',
 			time_format: 'h:mm a',
-			default_shipping_country: '',
-			default_shipping_state: '',
-			default_shipping_city: '',
+			default_shipping_province: '',
+			default_shipping_district: '',
+			default_shipping_ward: '',
+			// default_shipping_country: '',
+			// default_shipping_state: '',
+			// default_shipping_city: '',
 			default_product_sorting: 'stock_status,price,position',
 			product_fields:
 				'path,id,name,category_id,category_name,sku,images,enabled,discontinued,stock_status,stock_quantity,price,on_sale,regular_price,attributes,tags,position',
@@ -132,21 +135,39 @@ class SettingsService {
 			settings.time_format = parse.getString(data.time_format);
 		}
 
-		if (data.default_shipping_country !== undefined) {
-			settings.default_shipping_country = parse.getString(
-				data.default_shipping_country
+		// if (data.default_shipping_country !== undefined) {
+		// 	settings.default_shipping_country = parse.getString(
+		// 		data.default_shipping_country
+		// 	);
+		// }
+
+		if (data.default_shipping_province !== undefined) {
+			settings.default_shipping_province = parse.getString(
+				data.default_shipping_province
 			);
 		}
 
-		if (data.default_shipping_state !== undefined) {
-			settings.default_shipping_state = parse.getString(
-				data.default_shipping_state
+		// if (data.default_shipping_state !== undefined) {
+		// 	settings.default_shipping_state = parse.getString(
+		// 		data.default_shipping_state
+		// 	);
+		// }
+
+		if (data.default_shipping_district !== undefined) {
+			settings.default_shipping_district = parse.getString(
+				data.default_shipping_district
 			);
 		}
 
-		if (data.default_shipping_city !== undefined) {
-			settings.default_shipping_city = parse.getString(
-				data.default_shipping_city
+		// if (data.default_shipping_city !== undefined) {
+		// 	settings.default_shipping_city = parse.getString(
+		// 		data.default_shipping_city
+		// 	);
+		// }
+
+		if (data.default_shipping_ward !== undefined) {
+			settings.default_shipping_ward = parse.getString(
+				data.default_shipping_ward
 			);
 		}
 

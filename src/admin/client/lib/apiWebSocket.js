@@ -85,7 +85,8 @@ const eventHandler = ({ event, payload }) => {
 			store.dispatch(fetchOrders());
 			showNotification(
 				`${messages.order} #${order.number}`,
-				`${order.shipping_address.full_name}, ${order.shipping_address.city}`,
+				// `${order.shipping_address.full_name}, ${order.shipping_address.city}`,
+				`${order.shipping_address.full_name}, ${order.shipping_address.province}`,
 				true
 			);
 			break;

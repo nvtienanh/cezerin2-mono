@@ -55,8 +55,9 @@ class Account extends React.Component {
 
 	setInitialValues() {
 		this.props.initialize({
-			first_name: this.props.customerProperties.customer_settings.first_name,
-			last_name: this.props.customerProperties.customer_settings.last_name,
+			// first_name: this.props.customerProperties.customer_settings.first_name,
+			// last_name: this.props.customerProperties.customer_settings.last_name,
+			full_name: this.props.customerProperties.customer_settings.full_name,
 			email: this.props.customerProperties.customer_settings.email,
 			password: this.props.customerProperties.customer_settings.password,
 			billing_address: {
@@ -70,23 +71,38 @@ class Account extends React.Component {
 						? this.props.customerProperties.customer_settings.addresses[0]
 								.address2
 						: '',
-				city:
-					this.props.customerProperties.customer_settings.addresses.length > 0
-						? this.props.customerProperties.customer_settings.addresses[0].city
-						: '',
+				// city:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[0].city
+				// 		: '',
 				postal_code:
 					this.props.customerProperties.customer_settings.addresses.length > 0
 						? this.props.customerProperties.customer_settings.addresses[0]
 								.postal_code
 						: '',
-				state:
-					this.props.customerProperties.customer_settings.addresses.length > 0
-						? this.props.customerProperties.customer_settings.addresses[0].state
-						: '',
-				country:
+				// state:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[0].state
+				// 		: '',
+				// country:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[0]
+				// 				.country
+				// 		: '',
+				province:
 					this.props.customerProperties.customer_settings.addresses.length > 0
 						? this.props.customerProperties.customer_settings.addresses[0]
-								.country
+								.province
+						: '',
+				district:
+					this.props.customerProperties.customer_settings.addresses.length > 0
+						? this.props.customerProperties.customer_settings.addresses[0]
+								.district
+						: '',
+				ward:
+					this.props.customerProperties.customer_settings.addresses.length > 0
+						? this.props.customerProperties.customer_settings.addresses[0]
+								.ward
 						: ''
 			},
 			shipping_address: {
@@ -100,23 +116,38 @@ class Account extends React.Component {
 						? this.props.customerProperties.customer_settings.addresses[1]
 								.address2
 						: '',
-				city:
-					this.props.customerProperties.customer_settings.addresses.length > 0
-						? this.props.customerProperties.customer_settings.addresses[1].city
-						: '',
+				// city:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[1].city
+				// 		: '',
 				postal_code:
 					this.props.customerProperties.customer_settings.addresses.length > 0
 						? this.props.customerProperties.customer_settings.addresses[1]
 								.postal_code
 						: '',
-				state:
+				// state:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[1].state
+				// 		: '',
+				// country:
+				// 	this.props.customerProperties.customer_settings.addresses.length > 0
+				// 		? this.props.customerProperties.customer_settings.addresses[1]
+				// 				.country
+				// 		: '',
+				province:
 					this.props.customerProperties.customer_settings.addresses.length > 0
-						? this.props.customerProperties.customer_settings.addresses[1].state
+						? this.props.customerProperties.customer_settings.addresses[0]
+								.province
 						: '',
-				country:
+				district:
 					this.props.customerProperties.customer_settings.addresses.length > 0
-						? this.props.customerProperties.customer_settings.addresses[1]
-								.country
+						? this.props.customerProperties.customer_settings.addresses[0]
+								.district
+						: '',
+				ward:
+					this.props.customerProperties.customer_settings.addresses.length > 0
+						? this.props.customerProperties.customer_settings.addresses[0]
+								.ward
 						: ''
 			}
 		});
@@ -171,12 +202,15 @@ class Account extends React.Component {
 			return field.label;
 		} else {
 			switch (fieldName) {
-				case 'first_name':
-					return text.first_name;
+				case 'full_name':
+					return text.full_name;
 					break;
-				case 'last_name':
-					return text.last_name;
-					break;
+				// case 'first_name':
+				// 	return text.first_name;
+				// 	break;
+				// case 'last_name':
+				// 	return text.last_name;
+				// 	break;
 				case 'email':
 					return text.email;
 					break;
@@ -195,14 +229,23 @@ class Account extends React.Component {
 				case 'address2':
 					return text.address2;
 					break;
-				case 'country':
-					return text.country;
+				// case 'country':
+				// 	return text.country;
+				// 	break;
+				// case 'state':
+				// 	return text.state;
+				// 	break;
+				// case 'city':
+				// 	return text.city;
+				// 	break;
+				case 'province':
+					return text.province;
 					break;
-				case 'state':
-					return text.state;
+				case 'district':
+					return text.district;
 					break;
-				case 'city':
-					return text.city;
+				case 'ward':
+					return text.ward;
 					break;
 				case 'postal_code':
 					return text.postal_code;
@@ -339,18 +382,24 @@ class Account extends React.Component {
 						if (i < 1) {
 							billingAddress['address1'] = key.address1;
 							billingAddress['address2'] = key.address2;
-							billingAddress['city'] = key.city;
+							// billingAddress['city'] = key.city;
 							billingAddress['postal_code'] = key.postal_code;
-							billingAddress['state'] = key.state;
-							billingAddress['country'] = key.country;
+							// billingAddress['state'] = key.state;
+							// billingAddress['country'] = key.country;
+							billingAddress['province'] = key.province;
+							billingAddress['district'] = key.district;
+							billingAddress['ward'] = key.ward;
 						}
 						if (i > 0) {
 							shippingAddress['address1'] = key.address1;
 							shippingAddress['address2'] = key.address2;
-							shippingAddress['city'] = key.city;
+							// shippingAddress['city'] = key.city;
 							shippingAddress['postal_code'] = key.postal_code;
-							shippingAddress['state'] = key.state;
-							shippingAddress['country'] = key.country;
+							// shippingAddress['state'] = key.state;
+							// shippingAddress['country'] = key.country;
+							shippingAddress['province'] = key.province;
+							shippingAddress['district'] = key.district;
+							shippingAddress['ward'] = key.ward;
 						}
 					});
 
@@ -526,13 +575,17 @@ class Account extends React.Component {
 									).toLocaleDateString('de-DE')}
 								/>
 								<ReadOnlyField
+									name={text.full_name}
+									value={customerProperties.customer_settings.full_name}
+								/>
+								{/* <ReadOnlyField
 									name={text.first_name}
 									value={customerProperties.customer_settings.first_name}
 								/>
 								<ReadOnlyField
 									name={text.last_name}
 									value={customerProperties.customer_settings.last_name}
-								/>
+								/> */}
 								<ReadOnlyField
 									name={text.email}
 									value={customerProperties.customer_settings.email}
@@ -558,6 +611,24 @@ class Account extends React.Component {
 									<ReadOnlyField
 										name={text.address2}
 										value={billingAddress.address2}
+									/>
+								)}
+								{Object.keys(billingAddress).length > 0 && (
+									<ReadOnlyField
+										name={text.province}
+										value={billingAddress.province}
+									/>
+								)}
+								{Object.keys(billingAddress).length > 0 && (
+									<ReadOnlyField
+										name={text.district}
+										value={billingAddress.district}
+									/>
+								)}
+								{Object.keys(billingAddress).length > 0 && (
+									<ReadOnlyField
+										name={text.ward}
+										value={billingAddress.ward}
 									/>
 								)}
 								{Object.keys(billingAddress).length > 0 && (
@@ -603,22 +674,40 @@ class Account extends React.Component {
 								)}
 								{Object.keys(shippingAddress).length > 0 && (
 									<ReadOnlyField
+										name={text.province}
+										value={shippingAddress.province}
+									/>
+								)}
+								{Object.keys(shippingAddress).length > 0 && (
+									<ReadOnlyField
+										name={text.district}
+										value={shippingAddress.district}
+									/>
+								)}
+								{Object.keys(shippingAddress).length > 0 && (
+									<ReadOnlyField
+										name={text.ward}
+										value={shippingAddress.ward}
+									/>
+								)}
+								{/* {Object.keys(shippingAddress).length > 0 && (
+									<ReadOnlyField
 										name={text.city}
 										value={shippingAddress.city}
 									/>
-								)}
+								)} */}
 								{Object.keys(shippingAddress).length > 0 && (
 									<ReadOnlyField
 										name={text.postal_code}
 										value={shippingAddress.postal_code}
 									/>
 								)}
-								{Object.keys(shippingAddress).length > 0 && (
+								{/* {Object.keys(shippingAddress).length > 0 && (
 									<ReadOnlyField
 										name={text.state}
 										value={shippingAddress.state}
 									/>
-								)}
+								)} */}
 								<p>
 									{Object.keys(shippingAddress).length === 0 ? text.empty : ''}
 								</p>
@@ -630,6 +719,17 @@ class Account extends React.Component {
 							<form onSubmit={handleSubmit} className={accountForm}>
 								<h3 className={titleClassName}>{text.edit_profile}</h3>
 								<Field
+									className={accountInputField}
+									name="full_name"
+									id="customer.full_name"
+									autoComplete="new-password"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('full_name')}
+									validate={this.getFieldValidators('full_name')}
+									placeholder={this.getFieldPlaceholder('full_name')}
+								/>
+								{/* <Field
 									className={accountInputField}
 									name="first_name"
 									id="customer.first_name"
@@ -650,7 +750,7 @@ class Account extends React.Component {
 									label={this.getFieldLabel('last_name')}
 									validate={this.getFieldValidators('last_name')}
 									placeholder={this.getFieldPlaceholder('last_name')}
-								/>
+								/> */}
 								<Field
 									className={accountInputField}
 									name="email"
@@ -706,7 +806,7 @@ class Account extends React.Component {
 									label={this.getFieldLabel('address2')}
 									placeholder={this.getFieldPlaceholder('address2')}
 								/>
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="shipping_address.country"
 									id="shipping_address.country"
@@ -715,9 +815,19 @@ class Account extends React.Component {
 									label={this.getFieldLabel('country')}
 									validate={this.getFieldValidators('country')}
 									placeholder={this.getFieldPlaceholder('country')}
+								/> */}
+								<Field
+									className={accountInputField}
+									name="shipping_address.province"
+									id="shipping_address.province"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('province')}
+									validate={this.getFieldValidators('province')}
+									placeholder={this.getFieldPlaceholder('province')}
 								/>
 
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="shipping_address.state"
 									id="shipping_address.state"
@@ -726,8 +836,17 @@ class Account extends React.Component {
 									label={this.getFieldLabel('state')}
 									validate={this.getFieldValidators('state')}
 									placeholder={this.getFieldPlaceholder('state')}
+								/> */}
+								<Field
+									className={accountInputField}
+									name="shipping_address.district"
+									id="shipping_address.district"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('district')}
+									validate={this.getFieldValidators('district')}
+									placeholder={this.getFieldPlaceholder('district')}
 								/>
-
 								<Field
 									className={accountInputField}
 									name="shipping_address.postal_code"
@@ -738,8 +857,7 @@ class Account extends React.Component {
 									validate={this.getFieldValidators('postal_code')}
 									placeholder={this.getFieldPlaceholder('postal_code')}
 								/>
-
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="shipping_address.city"
 									id="shipping_address.city"
@@ -748,6 +866,16 @@ class Account extends React.Component {
 									label={this.getFieldLabel('city')}
 									validate={this.getFieldValidators('city')}
 									placeholder={this.getFieldPlaceholder('city')}
+								/> */}
+								<Field
+									className={accountInputField}
+									name="shipping_address.ward"
+									id="shipping_address.ward"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('ward')}
+									validate={this.getFieldValidators('ward')}
+									placeholder={this.getFieldPlaceholder('ward')}
 								/>
 
 								<h3 className={titleClassName}>{text.billingAddress}</h3>
@@ -770,7 +898,7 @@ class Account extends React.Component {
 									label={this.getFieldLabel('address2')}
 									placeholder={this.getFieldPlaceholder('address2')}
 								/>
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="billing_address.country"
 									id="billing_address.country"
@@ -779,9 +907,19 @@ class Account extends React.Component {
 									label={this.getFieldLabel('country')}
 									validate={this.getFieldValidators('country')}
 									placeholder={this.getFieldPlaceholder('country')}
+								/> */}
+								<Field
+									className={accountInputField}
+									name="billing_address.province"
+									id="billing_address.province"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('province')}
+									validate={this.getFieldValidators('province')}
+									placeholder={this.getFieldPlaceholder('province')}
 								/>
 
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="billing_address.state"
 									id="billing_address.state"
@@ -790,6 +928,16 @@ class Account extends React.Component {
 									label={this.getFieldLabel('state')}
 									validate={this.getFieldValidators('state')}
 									placeholder={this.getFieldPlaceholder('state')}
+								/> */}
+								<Field
+									className={accountInputField}
+									name="billing_address.district"
+									id="billing_address.district"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('district')}
+									validate={this.getFieldValidators('district')}
+									placeholder={this.getFieldPlaceholder('district')}
 								/>
 
 								<Field
@@ -803,7 +951,7 @@ class Account extends React.Component {
 									placeholder={this.getFieldPlaceholder('postal_code')}
 								/>
 
-								<Field
+								{/* <Field
 									className={accountInputField}
 									name="billing_address.city"
 									id="billing_address.city"
@@ -812,6 +960,17 @@ class Account extends React.Component {
 									label={this.getFieldLabel('city')}
 									validate={this.getFieldValidators('city')}
 									placeholder={this.getFieldPlaceholder('city')}
+								/> */}
+
+								<Field
+									className={accountInputField}
+									name="billing_address.ward"
+									id="billing_address.ward"
+									component={InputField}
+									type="text"
+									label={this.getFieldLabel('ward')}
+									validate={this.getFieldValidators('ward')}
+									placeholder={this.getFieldPlaceholder('ward')}
 								/>
 
 								<div className="checkout-button-wrap">

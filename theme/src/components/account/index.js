@@ -19,8 +19,9 @@ export default class AccountForm extends React.Component {
 	handleFormSubmit = values => {
 		const { shipping_address, billing_address } = values;
 		this.props.changecustomerProperties({
-			first_name: values.first_name,
-			last_name: values.last_name,
+			full_name: values.full_name,
+			// first_name: values.first_name,
+			// last_name: values.last_name,
 			email: values.email,
 			password: AuthHeader.encodeUserPassword(values.password),
 			token: Lscache.get('auth_data'),

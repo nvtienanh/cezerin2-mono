@@ -70,8 +70,10 @@ export const getOrderFieldLabelByKey = key => {
 			return messages.company;
 		case 'mobile':
 			return messages.mobile;
-		case 'city':
-			return messages.city;
+		// case 'city':
+		// 	return messages.city;
+		case 'province':
+			return messages.province;
 		case 'comments':
 			return messages.customerComment;
 		default:

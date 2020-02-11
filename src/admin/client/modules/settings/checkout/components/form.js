@@ -68,7 +68,7 @@ export default class EmailSettings extends React.Component {
 								status={this.getFieldStatus('full_name')}
 								path="full_name"
 							/>
-							<CheckoutFieldItem
+							{/* <CheckoutFieldItem
 								name={messages.first_name}
 								status={this.getFieldStatus('first_name')}
 								path="first_name"
@@ -77,7 +77,7 @@ export default class EmailSettings extends React.Component {
 								name={messages.last_name}
 								status={this.getFieldStatus('last_name')}
 								path="last_name"
-							/>
+							/> */}
 							<CheckoutFieldItem
 								name={messages.email}
 								status={this.getFieldStatus('email')}
@@ -113,16 +113,16 @@ export default class EmailSettings extends React.Component {
 								status={this.getFieldStatus('postal_code')}
 								path="postal_code"
 							/>
-							<CheckoutFieldItem
+							{/* <CheckoutFieldItem
 								name={messages.country}
 								status={this.getFieldStatus('country')}
 								path="country"
-							/>
-							<CheckoutFieldItem
+							/> */}
+							{/* <CheckoutFieldItem
 								name={messages.state}
 								status={this.getFieldStatus('state')}
 								path="state"
-							/>
+							/> */}
 							<CheckoutFieldItem
 								name={messages.province}
 								status={this.getFieldStatus('province')}
@@ -138,11 +138,11 @@ export default class EmailSettings extends React.Component {
 								status={this.getFieldStatus('ward')}
 								path="ward"
 							/>
-							<CheckoutFieldItem
+							{/* <CheckoutFieldItem
 								name={messages.city}
 								status={this.getFieldStatus('city')}
 								path="city"
-							/>
+							/> */}
 							<CheckoutFieldItem
 								name={messages.customerComment}
 								status={this.getFieldStatus('comments')}

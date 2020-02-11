@@ -130,8 +130,9 @@ class OrdersService {
 				alternativeSearch.push({ number: searchAsNumber });
 			}
 
-			alternativeSearch.push({ first_name: new RegExp(params.search, 'i') });
-			alternativeSearch.push({ last_name: new RegExp(params.search, 'i') });
+			// alternativeSearch.push({ first_name: new RegExp(params.search, 'i') });			
+			// alternativeSearch.push({ last_name: new RegExp(params.search, 'i') });
+			alternativeSearch.push({ full_name: new RegExp(params.search, 'i') });
 			alternativeSearch.push({ password: new RegExp(params.search, 'i') });
 			alternativeSearch.push({ email: new RegExp(params.search, 'i') });
 			alternativeSearch.push({ mobile: new RegExp(params.search, 'i') });
@@ -224,11 +225,11 @@ class OrdersService {
 						const hashPassword = bcrypt.hashSync(order.password, salt);
 
 						return CustomersService.addCustomer({
-							first_name: order.first_name,
-							last_name: order.last_name,
+							// first_name: order.first_name,
+							// last_name: order.last_name,
 							password: hashPassword,
 							email: order.email.toLowerCase(),
-							full_name: `${order.first_name} ${order.last_name}`,
+							full_name: order.full_name,
 							mobile: order.mobile,
 							browser: order.browser,
 							// addresses: customer.addresses
@@ -402,8 +403,9 @@ class OrdersService {
 				order.hold = parse.getBooleanIfValid(data.hold, false);
 				order.draft = parse.getBooleanIfValid(data.draft, true);
 
-				order.first_name = parse.getString(data.first_name).toLowerCase();
-				order.last_name = parse.getString(data.last_name).toLowerCase();
+				// order.first_name = parse.getString(data.first_name).toLowerCase();
+				// order.last_name = parse.getString(data.last_name).toLowerCase();
+				order.full_name = parse.getString(data.full_name).toLowerCase();
 				order.password = parse.getString(data.password);
 				order.email = parse.getString(data.email).toLowerCase();
 				order.mobile = parse.getString(data.mobile).toLowerCase();
@@ -489,11 +491,14 @@ class OrdersService {
 			if (data.draft !== undefined) {
 				order.draft = parse.getBooleanIfValid(data.draft, true);
 			}
-			if (data.first_name !== undefined) {
-				order.first_name = parse.getString(data.first_name);
-			}
-			if (data.last_name !== undefined) {
-				order.last_name = parse.getString(data.last_name);
+			// if (data.first_name !== undefined) {
+			// 	order.first_name = parse.getString(data.first_name);
+			// }
+			// if (data.last_name !== undefined) {
+			// 	order.last_name = parse.getString(data.last_name);
+			// }
+			if (data.full_name !== undefined) {
+				order.full_name = parse.getString(data.full_name);
 			}
 			if (data.password !== undefined) {
 				order.password = parse.getString(data.password);

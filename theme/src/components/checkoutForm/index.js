@@ -45,14 +45,17 @@ export default class CheckoutForm extends React.Component {
 		this.changeStep(2);
 	};
 
-	handleContactsSubmit = values => {
+	handleContactsSubmit = values => {		
 		let { shipping_address, billing_address } = values;
 		shipping_address.full_name = values.full_name;
+		shipping_address.province = JSON.parse(shipping_address.province).name;
+		shipping_address.district = JSON.parse(shipping_address.district).name;
+		shipping_address.ward = JSON.parse(shipping_address.ward).name;
 		this.props.updateCart(
 			{
 				full_name: values.full_name,
-				first_name: values.first_name,
-				last_name: values.last_name,
+				// first_name: values.first_name,
+				// last_name: values.last_name,
 				email: values.email,
 				mobile: values.mobile,
 				password: values.password,

@@ -14,7 +14,7 @@ class ProvincesRoute {
 			this.getProvinces.bind(this)
 		);
 		this.router.get(
-			'/v1/provinces/:provinceCode',
+			'/v1/provinces/:province_code',
 			security.checkUserScope.bind(this, security.scope.READ_GEOLOCATION),
 			this.getSingleProvince.bind(this)
 		);
@@ -49,7 +49,7 @@ class ProvincesRoute {
 	}
 
 	getSingleProvince(req, res, next) {
-		ProvincesService.getSingleProvince(req.params.provinceCode)
+		ProvincesService.getSingleProvince(req.params.province_code)
 			.then(data => {
 				if (data) {
 					res.send(data);

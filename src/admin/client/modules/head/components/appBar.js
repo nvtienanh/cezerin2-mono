@@ -328,19 +328,31 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/admin/settings/checkout/fields/first_name') {
-			title = messages.first_name;
-			leftButton = (
-				<Link to="/admin/settings/checkout">
-					<IconButton>
-						<FontIcon color="#fff" className="material-icons">
-							arrow_back
-						</FontIcon>
-					</IconButton>
-				</Link>
-			);
-		} else if (pathname === '/admin/settings/checkout/fields/last_name') {
-			title = messages.last_name;
+		// TODO: Remove unuse field in vietnam
+		// } else if (pathname === '/admin/settings/checkout/fields/first_name') {
+		// 	title = messages.first_name;
+		// 	leftButton = (
+		// 		<Link to="/admin/settings/checkout">
+		// 			<IconButton>
+		// 				<FontIcon color="#fff" className="material-icons">
+		// 					arrow_back
+		// 				</FontIcon>
+		// 			</IconButton>
+		// 		</Link>
+		// 	);
+		// } else if (pathname === '/admin/settings/checkout/fields/last_name') {
+		// 	title = messages.last_name;
+		// 	leftButton = (
+		// 		<Link to="/admin/settings/checkout">
+		// 			<IconButton>
+		// 				<FontIcon color="#fff" className="material-icons">
+		// 					arrow_back
+		// 				</FontIcon>
+		// 			</IconButton>
+		// 		</Link>
+		// 	);
+		} else if (pathname === '/admin/settings/checkout/fields/full_name') {
+			title = messages.full_name;
 			leftButton = (
 				<Link to="/admin/settings/checkout">
 					<IconButton>
@@ -416,8 +428,41 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/admin/settings/checkout/fields/country') {
-			title = messages.country;
+		// } else if (pathname === '/admin/settings/checkout/fields/country') {
+		// 	title = messages.country;
+		// 	leftButton = (
+		// 		<Link to="/admin/settings/checkout">
+		// 			<IconButton>
+		// 				<FontIcon color="#fff" className="material-icons">
+		// 					arrow_back
+		// 				</FontIcon>
+		// 			</IconButton>
+		// 		</Link>
+		// 	);
+		// } else if (pathname === '/admin/settings/checkout/fields/state') {
+		// 	title = messages.state;
+		// 	leftButton = (
+		// 		<Link to="/admin/settings/checkout">
+		// 			<IconButton>
+		// 				<FontIcon color="#fff" className="material-icons">
+		// 					arrow_back
+		// 				</FontIcon>
+		// 			</IconButton>
+		// 		</Link>
+		// 	);
+		// } else if (pathname === '/admin/settings/checkout/fields/city') {
+		// 	title = messages.city;
+		// 	leftButton = (
+		// 		<Link to="/admin/settings/checkout">
+		// 			<IconButton>
+		// 				<FontIcon color="#fff" className="material-icons">
+		// 					arrow_back
+		// 				</FontIcon>
+		// 			</IconButton>
+		// 		</Link>
+		// 	);
+		} else if (pathname === '/admin/settings/checkout/fields/province') {
+			title = messages.province;
 			leftButton = (
 				<Link to="/admin/settings/checkout">
 					<IconButton>
@@ -427,8 +472,8 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/admin/settings/checkout/fields/state') {
-			title = messages.state;
+		} else if (pathname === '/admin/settings/checkout/fields/district') {
+			title = messages.district;
 			leftButton = (
 				<Link to="/admin/settings/checkout">
 					<IconButton>
@@ -438,8 +483,8 @@ export default class AppBarTop extends React.Component {
 					</IconButton>
 				</Link>
 			);
-		} else if (pathname === '/admin/settings/checkout/fields/city') {
-			title = messages.city;
+		} else if (pathname === '/admin/settings/checkout/fields/ward') {
+			title = messages.ward;
 			leftButton = (
 				<Link to="/admin/settings/checkout">
 					<IconButton>

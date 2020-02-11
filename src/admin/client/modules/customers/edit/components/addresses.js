@@ -28,11 +28,14 @@ const Address = ({ address }) => {
 			<div>{address.address1}</div>
 			<div>{address.address2}</div>
 			<div>
-				{address.city},{' '}
-				{address.state && address.state.length > 0 ? address.state + ', ' : ''}
+				{/* {address.city},{' '}
+				{address.state && address.state.length > 0 ? address.state + ', ' : ''} */}
+				{address.ward},{' '}
+				{address.district && address.district.length > 0 ? address.district + ', ' : ''}
 				{address.postal_code}
 			</div>
-			<div>{address.country}</div>
+			{/* <div>{address.country}</div> */}
+			<div>{address.province}</div>
 			<div>{address.phone}</div>
 		</div>
 	);

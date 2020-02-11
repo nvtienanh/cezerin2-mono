@@ -12,7 +12,7 @@ import FlatButton from 'material-ui/FlatButton';
 
 const validate = values => {
 	const errors = {};
-	const requiredFields = ['city'];
+	const requiredFields = ['province'];
 
 	requiredFields.map(field => {
 		if (values && !values[field]) {
@@ -78,20 +78,36 @@ class CustomerAddressForm extends React.Component {
 							floatingLabelText={messages.address2}
 						/>
 					</div>
-					<div>
+					{/* <div>
 						<Field
 							component={TextField}
 							fullWidth={true}
 							name="city"
 							floatingLabelText={messages.city}
 						/>
-					</div>
+					</div> */}
 					<div>
+						<Field
+							component={TextField}
+							fullWidth={true}
+							name="ward"
+							floatingLabelText={messages.ward}
+						/>
+					</div>
+					{/* <div>
 						<Field
 							component={TextField}
 							fullWidth={true}
 							name="state"
 							floatingLabelText={messages.state}
+						/>
+					</div> */}
+					<div>
+						<Field
+							component={TextField}
+							fullWidth={true}
+							name="district"
+							floatingLabelText={messages.district}
 						/>
 					</div>
 					<div>
@@ -106,10 +122,18 @@ class CustomerAddressForm extends React.Component {
 						<Field
 							component={TextField}
 							fullWidth={true}
+							name="province"
+							floatingLabelText={messages.province}
+						/>
+					</div>
+					{/* <div>
+						<Field
+							component={TextField}
+							fullWidth={true}
 							name="country"
 							floatingLabelText={messages.country}
 						/>
-					</div>
+					</div> */}
 					<div>
 						<Field
 							component={TextField}

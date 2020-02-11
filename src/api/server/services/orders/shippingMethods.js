@@ -78,55 +78,107 @@ class ShippingMethodsService {
 							]
 						});
 
+						// if (
+						// 	order.shipping_address.country &&
+						// 	order.shipping_address.country.length > 0
+						// ) {
+						// 	filter['$and'].push({
+						// 		$or: [
+						// 			{
+						// 				'conditions.countries': {
+						// 					$size: 0
+						// 				}
+						// 			},
+						// 			{
+						// 				'conditions.countries': order.shipping_address.country
+						// 			}
+						// 		]
+						// 	});
+						// }
 						if (
-							order.shipping_address.country &&
-							order.shipping_address.country.length > 0
+							order.shipping_address.province &&
+							order.shipping_address.province.length > 0
 						) {
 							filter['$and'].push({
 								$or: [
 									{
-										'conditions.countries': {
+										'conditions.provinces': {
 											$size: 0
 										}
 									},
 									{
-										'conditions.countries': order.shipping_address.country
+										'conditions.provinces': order.shipping_address.province
 									}
 								]
 							});
 						}
 
+						// if (
+						// 	order.shipping_address.state &&
+						// 	order.shipping_address.state.length > 0
+						// ) {
+						// 	filter['$and'].push({
+						// 		$or: [
+						// 			{
+						// 				'conditions.states': {
+						// 					$size: 0
+						// 				}
+						// 			},
+						// 			{
+						// 				'conditions.states': order.shipping_address.state
+						// 			}
+						// 		]
+						// 	});
+						// }
+
 						if (
-							order.shipping_address.state &&
-							order.shipping_address.state.length > 0
+							order.shipping_address.district &&
+							order.shipping_address.district.length > 0
 						) {
 							filter['$and'].push({
 								$or: [
 									{
-										'conditions.states': {
+										'conditions.districts': {
 											$size: 0
 										}
 									},
 									{
-										'conditions.states': order.shipping_address.state
+										'conditions.districts': order.shipping_address.district
 									}
 								]
 							});
 						}
 
+						// if (
+						// 	order.shipping_address.city &&
+						// 	order.shipping_address.city.length > 0
+						// ) {
+						// 	filter['$and'].push({
+						// 		$or: [
+						// 			{
+						// 				'conditions.cities': {
+						// 					$size: 0
+						// 				}
+						// 			},
+						// 			{
+						// 				'conditions.cities': order.shipping_address.city
+						// 			}
+						// 		]
+						// 	});
+						// }
 						if (
-							order.shipping_address.city &&
-							order.shipping_address.city.length > 0
+							order.shipping_address.ward &&
+							order.shipping_address.ward.length > 0
 						) {
 							filter['$and'].push({
 								$or: [
 									{
-										'conditions.cities': {
+										'conditions.wards': {
 											$size: 0
 										}
 									},
 									{
-										'conditions.cities': order.shipping_address.city
+										'conditions.wards': order.shipping_address.ward
 									}
 								]
 							});
@@ -197,9 +249,12 @@ class ShippingMethodsService {
 	getShippingMethodConditions(conditions) {
 		return conditions
 			? {
-					countries: parse.getArrayIfValid(conditions.countries) || [],
-					states: parse.getArrayIfValid(conditions.states) || [],
-					cities: parse.getArrayIfValid(conditions.cities) || [],
+					// countries: parse.getArrayIfValid(conditions.countries) || [],
+					// states: parse.getArrayIfValid(conditions.states) || [],
+					// cities: parse.getArrayIfValid(conditions.cities) || [],
+					provinces: parse.getArrayIfValid(conditions.provinces) || [],
+					districts: parse.getArrayIfValid(conditions.districts) || [],
+					wards: parse.getArrayIfValid(conditions.wards) || [],
 					subtotal_min: parse.getNumberIfPositive(conditions.subtotal_min) || 0,
 					subtotal_max: parse.getNumberIfPositive(conditions.subtotal_max) || 0,
 					weight_total_min:
@@ -208,9 +263,12 @@ class ShippingMethodsService {
 						parse.getNumberIfPositive(conditions.weight_total_max) || 0
 			  }
 			: {
-					countries: [],
-					states: [],
-					cities: [],
+					// countries: [],
+					// states: [],
+					// cities: [],
+					provinces: [],
+					districts: [],
+					wards: [],
 					subtotal_min: 0,
 					subtotal_max: 0,
 					weight_total_min: 0,

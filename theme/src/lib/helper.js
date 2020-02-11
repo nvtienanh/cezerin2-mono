@@ -152,12 +152,18 @@ export const getFieldLabelByKey = key => {
 			return text.password;
 		case 'mobile':
 			return text.mobile;
-		case 'city':
-			return text.city;
-		case 'state':
-			return text.state;
-		case 'country':
-			return text.country;
+		case 'province':
+			return text.province;
+		case 'district':
+			return text.district;
+		case 'ward':
+			return text.ward;	
+		// case 'city':
+		// 	return text.city;
+		// case 'state':
+		// 	return text.state;
+		// case 'country':
+		// 	return text.country;
 		case 'comments':
 			return text.comments;
 		default:
@@ -172,7 +178,3 @@ export const getShippingFieldLabel = ({ label, key }) =>
 
 export const getCheckoutFieldLabel = ({ label, name }) =>
 	label && label.length > 0 ? label : getFieldLabelByKey(name);
-
-export const getGeolocation = (Code, parentCode) =>{
-	return _getGeolocation(Code, parentCode)
-} 

@@ -193,9 +193,9 @@ export const checkout = (cart, history) => async (dispatch, getState) => {
 	dispatch(requestCheckout());
 	if (cart) {
 		await api.ajax.cart.update({
-			full_name: `${cart.first_name} ${cart.last_name}`,
-			first_name: cart.first_name,
-			last_name: cart.last_name,
+			full_name: cart.full_name,
+			// first_name: cart.first_name,
+			// last_name: cart.last_name,
 			shipping_address: cart.shipping_address,
 			billing_address: cart.billing_address,
 			email: cart.email,

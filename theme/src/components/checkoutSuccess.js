@@ -23,12 +23,22 @@ const MobileField = ({ order, checkoutFields }) => {
 	) : null;
 };
 
+// const CityField = ({ order, checkoutFields }) => {
+// 	const checkoutField = getCheckoutField(checkoutFields, 'city');
+// 	return checkoutField && order.shipping_address.city !== '' ? (
+// 		<ShippingFieldDiv
+// 			label={helper.getCheckoutFieldLabel(checkoutField)}
+// 			value={order.shipping_address.city}
+// 		/>
+// 	) : null;
+// };
+
 const CityField = ({ order, checkoutFields }) => {
-	const checkoutField = getCheckoutField(checkoutFields, 'city');
-	return checkoutField && order.shipping_address.city !== '' ? (
+	const checkoutField = getCheckoutField(checkoutFields, 'province');
+	return checkoutField && order.shipping_address.province !== '' ? (
 		<ShippingFieldDiv
 			label={helper.getCheckoutFieldLabel(checkoutField)}
-			value={order.shipping_address.city}
+			value={order.shipping_address.province}
 		/>
 	) : null;
 };
