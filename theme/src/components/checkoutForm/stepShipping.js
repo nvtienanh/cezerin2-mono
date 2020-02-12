@@ -11,14 +11,20 @@ const getFieldLabelByKey = key => {
 	switch (key) {
 		case 'full_name':
 			return text.full_name;
+		case 'phone':
+			return text.phone;
 		case 'address1':
 			return text.address1;
 		case 'address2':
 			return text.address2;
+		case 'ward':
+			return text.ward;
+		case 'district':
+			return text.district;
+		case 'province':
+			return text.province;
 		case 'postal_code':
-			return text.postal_code;
-		case 'phone':
-			return text.phone;
+			return text.postal_code;		
 		case 'company':
 			return text.company;
 		default:

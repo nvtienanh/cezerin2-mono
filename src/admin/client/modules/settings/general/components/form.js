@@ -6,6 +6,7 @@ import { TextField, SelectField, DatePicker } from 'redux-form-material-ui';
 import { CustomToggle } from 'modules/shared/form';
 import messages from 'lib/text';
 import data from 'lib/data';
+import api from 'lib/api';
 
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -17,12 +18,29 @@ import { List, ListItem } from 'material-ui/List';
 import style from './style.css';
 
 class GeneralSettings extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			provinces: []
+		};
+	}
 	componentDidMount() {
 		this.props.onLoad();
+		this.fetchProvinces();
 	}
+
+	fetchProvinces = () => {
+		api.provinces.listProvinces().then(({ status, json }) => {
+			this.setState({
+				provinces: json
+			});
+		});
+	};
 
 	render() {
 		const { handleSubmit, pristine, submitting, initialValues } = this.props;
+		const { provinces } = this.state;
 
 		const currencyItems = [];
 		for (const key in data.currencies) {
@@ -59,10 +77,16 @@ class GeneralSettings extends React.Component {
 			);
 		}
 
-		const countryItems = [];
-		for (const key in data.countries) {
-			countryItems.push(
-				<MenuItem value={key} key={key} primaryText={data.countries[key]} />
+		// const countryItems = [];
+		// for (const key in data.countries) {
+		// 	countryItems.push(
+		// 		<MenuItem value={key} key={key} primaryText={data.countries[key]} />
+		// 	);
+		// }
+		const provinceItems = [];
+		for (const key in provinces) {
+			provinceItems.push(
+				<MenuItem value={provinces[key].name_with_type} key={provinces[key]._id} primaryText={provinces[key].name_with_type} />
 			);
 		}
 
@@ -437,7 +461,7 @@ class GeneralSettings extends React.Component {
 							}}
 						/>
 
-						<div className="row between-xs middle-xs">
+						{/* <div className="row between-xs middle-xs">
 							<div className="col-xs-12 col-sm-6">
 								{messages.settings_defaultShippingCountry}
 							</div>
@@ -451,6 +475,21 @@ class GeneralSettings extends React.Component {
 									{countryItems}
 								</Field>
 							</div>
+						</div> */}
+						<div className="row between-xs middle-xs">
+							<div className="col-xs-12 col-sm-6">
+								{messages.settings_defaultShippingProvince}
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Field
+									component={SelectField}
+									autoWidth
+									fullWidth
+									name="default_shipping_province"
+								>
+									{provinceItems}
+								</Field>
+							</div>
 						</div>
 
 						<Divider
@@ -460,7 +499,7 @@ class GeneralSettings extends React.Component {
 							}}
 						/>
 
-						<div className="row between-xs middle-xs">
+						{/* <div className="row between-xs middle-xs">
 							<div className="col-xs-12 col-sm-6">
 								{messages.settings_defaultShippingState}
 							</div>
@@ -469,6 +508,19 @@ class GeneralSettings extends React.Component {
 									component={TextField}
 									fullWidth
 									name="default_shipping_state"
+								/>
+							</div>
+						</div> */}
+
+						<div className="row between-xs middle-xs">
+							<div className="col-xs-12 col-sm-6">
+								{messages.settings_defaultShippingDistrict}
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Field
+									component={TextField}
+									fullWidth
+									name="default_shipping_district"
 								/>
 							</div>
 						</div>
@@ -480,7 +532,7 @@ class GeneralSettings extends React.Component {
 							}}
 						/>
 
-						<div className="row between-xs middle-xs">
+						{/* <div className="row between-xs middle-xs">
 							<div className="col-xs-12 col-sm-6">
 								{messages.settings_defaultShippingCity}
 							</div>
@@ -489,6 +541,19 @@ class GeneralSettings extends React.Component {
 									component={TextField}
 									fullWidth
 									name="default_shipping_city"
+								/>
+							</div>
+						</div> */}
+
+						<div className="row between-xs middle-xs">
+							<div className="col-xs-12 col-sm-6">
+								{messages.settings_defaultShippingWard}
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Field
+									component={TextField}
+									fullWidth
+									name="default_shipping_ward"
 								/>
 							</div>
 						</div>

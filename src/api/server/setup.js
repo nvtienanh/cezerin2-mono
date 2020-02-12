@@ -401,9 +401,12 @@ const addShippingMethods = async db => {
 			name: 'Courier Service',
 			enabled: true,
 			conditions: {
-				countries: [],
-				states: [],
-				cities: [],
+				// countries: [],
+				// states: [],
+				// cities: [],
+				provinces: [],
+				districts: [],
+				wards: [],
 				subtotal_min: 0,
 				subtotal_max: 0,
 				weight_total_min: 0,
@@ -424,7 +427,8 @@ const addPaymentMethods = async db => {
 			name: 'Cash On Delivery',
 			enabled: true,
 			conditions: {
-				countries: [],
+				// countries: [],
+				provinces: [],
 				shipping_method_ids: [],
 				subtotal_min: 0,
 				subtotal_max: 0

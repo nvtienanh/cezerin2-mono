@@ -494,13 +494,13 @@ class CheckoutStepContacts extends React.Component {
 							value={initialValues.shipping_address.postal_code}
 						/>
 					)}
-					{/* {!this.isFieldHidden('city') && (
+					{!this.isFieldHidden('city') && (
 						<ReadOnlyField
 							step={step}
 							name={text.city}
 							value={initialValues.shipping_address.city}
 						/>
-					)} */}
+					)}
 					<ReadOnlyField
 						step={step}
 						name={text.shippingMethod}
