@@ -13,6 +13,10 @@ export { default as ForgotPasswordContainer } from './containers/forgotPassword'
 export { default as ResetPasswordContainer } from './containers/resetPassword';
 export { default as CheckoutSuccessContainer } from './containers/checkoutSuccess';
 export { default as SearchContainer } from './containers/search';
+export { default as AboutUsContainer } from './containers/about';
+export { default as TosContainer } from './containers/tos';
+export { default as PrivacyPolicyContainer } from './containers/privacyPolicy';
+export { default as ContactContainer } from './containers/contact';
 
 // combine all css files into one with webpack. Hack to deal with server side rendering.
 if (typeof window !== 'undefined') {

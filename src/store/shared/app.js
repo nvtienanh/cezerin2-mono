@@ -18,6 +18,10 @@ import RegisterContainer from './containers/register';
 import AccountContainer from './containers/account';
 import ForgotPasswordContainer from './containers/forgotPassword';
 import ResetPasswordContainer from './containers/resetPassword';
+import AboutUsContainer from './containers/about';
+import TosContainer from './containers/tos';
+import PrivacyPolicyContainer from './containers/privacyPolicy';
+import ContactContainer from './containers/contact';
 
 import { setCurrentPage } from './actions';
 import { PAGE, PRODUCT_CATEGORY, PRODUCT, RESERVED, SEARCH } from './pageTypes';
@@ -73,6 +77,18 @@ class SwitchContainers extends React.Component {
 				}
 				if (locationPathname === '/reset-password') {
 					return <ResetPasswordContainer />;
+				}
+				if (locationPathname === '/about') {
+					return <AboutUsContainer />;
+				}
+				if (locationPathname === '/tos') {
+					return <TosContainer />;
+				}
+				if (locationPathname === '/privacy-policy') {
+					return <PrivacyPolicyContainer />;
+				}
+				if (locationPathname === '/contact') {
+					return <ContactContainer />;
 				}
 				if (locationPathname === '/') {
 					return <IndexContainer />;

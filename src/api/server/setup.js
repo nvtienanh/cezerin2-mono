@@ -80,6 +80,24 @@ const addAllPages = async db => {
 		enabled: true,
 		is_system: true
 	});
+	await addPage(db, {
+		slug: 'contact',
+		meta_title: 'Contact us',
+		enabled: true,
+		is_system: true
+	});
+	await addPage(db, {
+		slug: 'tos',
+		meta_title: 'Terms of Service',
+		enabled: true,
+		is_system: false
+	});
+	await addPage(db, {
+		slug: 'privacy-policy',
+		meta_title: 'Privacy Policy',
+		enabled: true,
+		is_system: false
+	});
 };
 
 const addAllProducts = async db => {
