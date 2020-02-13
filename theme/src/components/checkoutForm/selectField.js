@@ -1,4 +1,5 @@
 import React from 'react';
+import { themeSettings, text } from '../../lib/settings';
 
 const SelectField = field => (
 	<div className={field.className}>
@@ -19,7 +20,7 @@ const SelectField = field => (
 				padding: '12px 16px'
 			}}
 		>
-			<option>Please select</option>
+			<option>{text.selectOption}</option>
 			{
 				field.data.map(item => (
 					<option

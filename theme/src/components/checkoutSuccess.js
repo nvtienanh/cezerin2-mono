@@ -176,7 +176,7 @@ const CheckoutSuccess = ({
 							<span>{helper.formatCurrency(order.subtotal, settings)}</span>
 						</div>
 						<div>
-							<span>{text.shipping}:</span>
+							<span>{text.shipping_fee}:</span>
 							<span>
 								{helper.formatCurrency(order.shipping_total, settings)}
 							</span>

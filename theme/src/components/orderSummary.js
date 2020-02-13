@@ -102,7 +102,7 @@ const OrderSummary = props => {
 					<div className="column is-5 has-text-right price">
 						{helper.formatCurrency(cart.subtotal, settings)}
 					</div>
-					<div className="column is-7">{text.shipping}</div>
+					<div className="column is-7">{text.shipping_fee}</div>
 					<div className="column is-5 has-text-right price">
 						{helper.formatCurrency(cart.shipping_total, settings)}
 					</div>
