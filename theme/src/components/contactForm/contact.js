@@ -30,6 +30,24 @@ const InputField = field => (
 	</div>
 );
 
+const TextareaField = field => (
+	<div className={field.className}>
+		<label htmlFor={field.id}>
+			{field.label}
+			{field.meta.touched && field.meta.error && (
+				<span className="error">{field.meta.error}</span>
+			)}
+		</label>
+		<textarea
+			{...field.input}
+			placeholder={field.placeholder}
+			rows={field.rows}
+			id={field.id}
+			className={field.meta.touched && field.meta.error ? 'invalid' : ''}
+		/>
+	</div>
+);
+
 class Contact extends React.Component {
 	constructor(props) {
 		super(props);
@@ -114,83 +132,82 @@ class Contact extends React.Component {
 	render() {
 		let { handleSubmit } = this.props;
 
-		const registerButtonClassName = 'account-button button';
-		const inputClassName = 'login-input-field';
-		const titleClassName = 'login-title';
+		const sendButtonClassName = 'contact-button button is-primary';
+		const inputClassName = 'contact-field';
+		const titleClassName = 'title is-4';
 		return (
-			<div className="login-container">
-				<form onSubmit={handleSubmit} className="login-form">
-					<div className="register-section">
-						<h2 className={titleClassName}>{text.register_title}</h2>
-						<Field
-                            className={inputClassName}
-                            name="full_name"
-                            id="contact.full_name"
-                            component={InputField}
-                            type="text"
-                            props={this.value}
-                            label={this.getFieldLabel('full_name')}
-                            validate={this.getFieldValidators('full_name')}
-                            placeholder={this.getFieldPlaceholder('full_name')}
-						/>
-                        <Field
-                            className={inputClassName}
-                            name="email"
-                            id="ccontact.email"
-                            component={InputField}
-                            type="email"
-                            props={this.value}
-                            label={this.getFieldLabel('email')}
-                            validate={this.getFieldValidators('email')}
-                            placeholder={this.getFieldPlaceholder('email')}
-                        />
+			<div className="contact-step">
+				<h1 className={titleClassName}>{text.contact_us}</h1>
+				<hr className="separator" />
+				<form onSubmit={handleSubmit}>					
+					<Field
+						className={inputClassName}
+						name="full_name"
+						id="contact.full_name"
+						component={InputField}
+						type="text"
+						props={this.value}
+						label={this.getFieldLabel('full_name')}
+						validate={this.getFieldValidators('full_name')}
+						placeholder={this.getFieldPlaceholder('full_name')}
+					/>
+					<Field
+						className={inputClassName}
+						name="email"
+						id="ccontact.email"
+						component={InputField}
+						type="email"
+						props={this.value}
+						label={this.getFieldLabel('email')}
+						validate={this.getFieldValidators('email')}
+						placeholder={this.getFieldPlaceholder('email')}
+					/>
 
-                        <Field
-                            className={inputClassName}
-                            name="phone"
-                            id="contact.phone"
-                            component={InputField}
-                            type="text"
-                            props={this.value}
-                            label={this.getFieldLabel('phone')}
-                            onBlur={this.passwordTemp}
-                            validate={this.getFieldValidators('phone')}
-                            placeholder={this.getFieldPlaceholder('phone')}
-                        />
+					<Field
+						className={inputClassName}
+						name="phone"
+						id="contact.phone"
+						component={InputField}
+						type="tel"
+						props={this.value}
+						label={this.getFieldLabel('phone')}
+						onBlur={this.passwordTemp}
+						validate={this.getFieldValidators('phone')}
+						placeholder={this.getFieldPlaceholder('phone')}
+					/>
 
-                        <Field
-                            className={inputClassName}
-                            name="subject"
-                            id="contact.subject"
-                            component={InputField}
-                            type="text"
-                            props={this.value}
-                            label={this.getFieldLabel('subject')}
-                            validate={this.getFieldValidators('subject')}
-                            placeholder={this.getFieldPlaceholder('subject')}
-                        />
+					<Field
+						className={inputClassName}
+						name="subject"
+						id="contact.subject"
+						component={InputField}
+						type="text"
+						props={this.value}
+						label={this.getFieldLabel('subject')}
+						validate={this.getFieldValidators('subject')}
+						placeholder={this.getFieldPlaceholder('subject')}
+					/>
 
-                        <Field
-                            className={inputClassName}
-                            name="message"
-                            id="contact.message"
-                            component={InputField}
-                            type="text"
-                            props={this.value}
-                            label={this.getFieldLabel('message')}
-                            validate={this.getFieldValidators('message')}
-                            placeholder={this.getFieldPlaceholder('message')}
-                        />
+					<Field
+						className={inputClassName + ' shipping-comments'}
+						name="message"
+						id="contact.message"
+						component={TextareaField}
+						type="text"
+						label={this.getFieldLabel('message')}
+						placeholder={this.getFieldPlaceholder('message')}
+						validate={this.getFieldValidators('message')}
+						rows="5"
+					/>
 
-						<div className="login-button-wrap">
-                            <button
-                                type="submit"
-                                className={registerButtonClassName}
-                            >
-                                {text.register}
-                            </button>
-						</div>
-					</div>
+					<div className="contact-button-wrap">
+						<button
+							type="submit"
+							className={sendButtonClassName}
+						>
+							{text.contact_send}
+						</button>
+					</div>					
 				</form>
 			</div>
 		);

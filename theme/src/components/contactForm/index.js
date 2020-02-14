@@ -19,8 +19,8 @@ export default class ContactForm extends React.Component {
 		const { settings } = this.props.state;
 
 		const {
-			checkoutInputClass = 'checkout-field',
-			checkoutButtonClass = 'checkout-button'
+			checkoutInputClass = 'contact-field',
+			checkoutButtonClass = 'contact-button'
 		} = themeSettings;
 
 		return (

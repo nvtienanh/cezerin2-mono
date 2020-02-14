@@ -89,6 +89,7 @@
     "formidable": "^1.2.1",
     "fs": "0.0.1-security",
     "fs-extra": "^7.0.0",
+    "google-maps-react": "^2.0.2",
     "google-spreadsheet": "^2.0.5",
     "handlebars": "^4.0.11",
     "helmet": "^3.13.0",

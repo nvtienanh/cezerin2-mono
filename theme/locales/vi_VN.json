@@ -139,5 +139,11 @@
   "back_to_login": "Quay lại đăng nhập",
   "no_image": "No image",
   "contact_subject": "Tiêu đề",
-  "contact_message": "Nội dung"
+  "contact_message": "Nội dung",
+  "contact_send": "Gửi tin nhắn",
+  "contact_us": "Liên hệ với chúng tôi",
+  "contact_info": "Thông tin",
+  "contact_address": "Địa chỉ",
+  "contact_phone": "Điện thoại",
+  "contact_email": "Email"
 }
