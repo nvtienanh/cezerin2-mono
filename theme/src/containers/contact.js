@@ -78,19 +78,17 @@ const ContactContainer = props => {
 								<hr className="separator" />
 								<div className="title is-4">{text.contact_info}</div>
 								<div className="columns is-mobile is-gapless is-multiline summary-block">
-									<div className="column is-7">{text.contact_address}</div>
-									<div className="column is-5 has-text-right price">
-										Your address
+									<div className="column is-3 contact-text">{text.contact_address}</div>
+									<div className="column is-9 has-text-right contact-text">
+										{`${themeSettings.footer_contacts[0].text}, ${themeSettings.footer_contacts[1].text}`}
 									</div>
-									<div className="column is-7">{text.contact_phone}</div>
-									<div className="column is-5 has-text-right price">
-										{/* {helper.formatCurrency(cart.shipping_total, settings)} */}
-										Your phone
+									<div className="column is-3 contact-text">{text.contact_phone}</div>
+									<div className="column is-9 has-text-right contact-text">
+										{themeSettings.footer_contacts[2].text}
 									</div>
-									<div className="column is-6 total-text">{text.contact_email}</div>
-									<div className="column is-6 contact-text">
-										{/* {helper.formatCurrency(cart.grand_total, settings)} */}
-										Your email
+									<div className="column is-3 contact-text">{text.contact_email}</div>
+									<div className="column is-9 has-text-right contact-text">
+										{themeSettings.footer_contacts[3].text}
 									</div>
 								</div>
 							</div>
