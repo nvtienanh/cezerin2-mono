@@ -13,7 +13,7 @@ const LoginContainer = props => {
 			<section className="section section-login">
 				<div className="container">
 					<div className="columns columns-login">
-						<div className="column is-6-widescreen is-6-desktop login-box">
+						<div className="column is-4-widescreen is-4-desktop login-box">
 							<Login {...props} />
 						</div>
 					</div>

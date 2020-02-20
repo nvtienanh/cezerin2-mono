@@ -145,7 +145,8 @@ class Login extends React.Component {
 
 		const inputClassName = 'login-input-field';
 		const titleClassName = 'login-title';
-		const loginButtonClass = 'account-button button';
+		const loginButtonClass = 'account-button button is-primary';
+		const registerButtonClass = 'account-button button';
 		const loginSectionGuest = 'login-section-guest';
 		const errorAlertText = 'error-alert-text';
 		const loginForm =
@@ -205,7 +206,7 @@ class Login extends React.Component {
 						<div className="login-button-wrap">
 							<button
 								type="button"
-								className={loginButtonClass}
+								className={registerButtonClass}
 								onClick={this.switchRegister}
 							>
 								{text.register}
