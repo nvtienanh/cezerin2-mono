@@ -10,10 +10,12 @@ const LoginContainer = props => {
 
 	return (
 		<Fragment>
-			<section className="section">
+			<section className="section section-login">
 				<div className="container">
-					<div className="content">
-						<Login {...props} />
+					<div className="columns columns-login">
+						<div className="column is-6-widescreen is-6-desktop login-box">
+							<Login {...props} />
+						</div>
 					</div>
 				</div>
 			</section>
