@@ -149,9 +149,9 @@ class EditPaymentMethodForm extends React.Component {
 									<Field
 										component={TextField}
 										fullWidth={true}
-										name="conditions.countries"
-										floatingLabelText={messages.settings_countries}
-										hintText="US,UK,AU,SG"
+										name="conditions.provinces"
+										floatingLabelText={messages.settings_provinces}
+										hintText="Thành phố Hồ Chí Minh,Thành phố Hà Nội"
 									/>
 								</div>
 								<div className="row">

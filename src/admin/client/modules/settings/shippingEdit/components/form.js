@@ -105,27 +105,27 @@ class EditShippingMethodForm extends React.Component {
 									<Field
 										component={TextField}
 										fullWidth={true}
-										name="conditions.countries"
+										name="conditions.provices"
 										floatingLabelText={messages.settings_countries}
-										hintText="US,UK,AU,SG"
+										hintText="Thành phố Hồ Chí Minh,Thành phố Hà Nội"
 									/>
 								</div>
 								<div>
 									<Field
 										component={TextField}
 										fullWidth={true}
-										name="conditions.states"
-										floatingLabelText={messages.settings_states}
-										hintText="California,Nevada,Oregon"
+										name="conditions.districts"
+										floatingLabelText={messages.settings_districts}
+										hintText="Quận 1,Quận Hai Bà Trưng,Quận Liên Chiểu"
 									/>
 								</div>
 								<div>
 									<Field
 										component={TextField}
 										fullWidth={true}
-										name="conditions.cities"
-										floatingLabelText={messages.settings_cities}
-										hintText="Los Angeles,San Diego,San Jose"
+										name="conditions.wards"
+										floatingLabelText={messages.settings_wards}
+										hintText="Phường 15,Phường Tân Quý,Phường Bến Nghé"
 									/>
 								</div>
 
@@ -194,11 +194,11 @@ class EditShippingMethodForm extends React.Component {
 									Standard:
 									<ul>
 										<li>full_name</li>
-										<li>address1</li>
-										<li>address2</li>
-										<li>postal_code</li>
 										<li>phone</li>
-										<li>company</li>
+										<li>province</li>
+										<li>district</li>
+										<li>ward</li>
+										<li>address1</li>
 									</ul>
 								</div>
 							</div>
