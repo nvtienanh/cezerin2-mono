@@ -10,10 +10,12 @@ const RegisterContainer = props => {
 
 	return (
 		<Fragment>
-			<section className="section">
+			<section className="section section-register">
 				<div className="container">
-					<div className="content">
-						<Register {...props} />
+					<div className="columns columns-register">
+						<div className="column is-5-widescreen is-5-desktop register-box">
+							<Register {...props} />
+						</div>
 					</div>
 				</div>
 			</section>

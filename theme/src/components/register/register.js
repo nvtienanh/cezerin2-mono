@@ -149,61 +149,63 @@ class Register extends React.Component {
 		registerProperties =
 			registerProperties === undefined ? initialData : registerProperties;
 
-		const registerButtonClassName = 'account-button button';
-		const inputClassName = 'login-input-field';
+		const registerButtonClassName = 'account-button button is-primary';
+		const inputClassName = 'register-input-field';
 		const titleClassName = 'login-title';
 		const successAlertText = 'success-alert-text';
 		const errorAlertText = 'error-alert-text';
 		const loginButtonClass = 'account-button button';
 		return (
-			<div className="login-container">
-				<form onSubmit={handleSubmit} className="login-form">
-					<div className="register-section">
-						<h2 className={titleClassName}>{text.register_title}</h2>
+			<div className="register-step">
+				<form onSubmit={handleSubmit} className="register-form">
+					{/* <div className="register-section"> */}
+					{/* <h2 className={titleClassName}>{text.register_title}</h2> */}
+					<h1> {text.register_title}</h1>
+					<hr className="separator" />
 
-						{!registerProperties.status &&
-						!registerProperties.isCustomerSaved &&
-						registerProperties.isCustomerSaved !== null &&
-						registerProperties.isRightToken ? (
-							<p className={errorAlertText}>{text.registry_failed}</p>
-						) : (
-							''
-						)}
-						{registerProperties.status ? (
-							<p className={successAlertText}>{text.registry_doi_success}</p>
-						) : (
-							''
-						)}
-						{registerProperties.isCustomerSaved ? (
-							<p className={successAlertText}>{text.registry_completed}</p>
-						) : (
-							''
-						)}
-						{!registerProperties.isRightToken &&
-						registerProperties.isRightToken !== null ? (
-							<p className={errorAlertText}>{text.registry_wrong_token}</p>
-						) : (
-							''
-						)}
-						{!registerProperties.isCustomerSaved && (
-							<Field
-								className={inputClassName}
-								name="full_name"
-								id="customer.full_name"
-								component={InputField}
-								type="text"
-								props={
-									registerProperties !== undefined && registerProperties.status
-										? { disabled: true }
-										: this.value
-								}
-								label={this.getFieldLabel('full_name')}
-								validate={this.getFieldValidators('full_name')}
-								placeholder={this.getFieldPlaceholder('full_name')}
-							/>
-						)}
+					{!registerProperties.status &&
+					!registerProperties.isCustomerSaved &&
+					registerProperties.isCustomerSaved !== null &&
+					registerProperties.isRightToken ? (
+						<p className={errorAlertText}>{text.registry_failed}</p>
+					) : (
+						''
+					)}
+					{registerProperties.status ? (
+						<p className={successAlertText}>{text.registry_doi_success}</p>
+					) : (
+						''
+					)}
+					{registerProperties.isCustomerSaved ? (
+						<p className={successAlertText}>{text.registry_completed}</p>
+					) : (
+						''
+					)}
+					{!registerProperties.isRightToken &&
+					registerProperties.isRightToken !== null ? (
+						<p className={errorAlertText}>{text.registry_wrong_token}</p>
+					) : (
+						''
+					)}
+					{!registerProperties.isCustomerSaved && (
+						<Field
+							className={inputClassName}
+							name="full_name"
+							id="customer.full_name"
+							component={InputField}
+							type="text"
+							props={
+								registerProperties !== undefined && registerProperties.status
+									? { disabled: true }
+									: this.value
+							}
+							label={this.getFieldLabel('full_name')}
+							validate={this.getFieldValidators('full_name')}
+							placeholder={this.getFieldPlaceholder('full_name')}
+						/>
+					)}
 
-						{/* {!registerProperties.isCustomerSaved && (
+					{/* {!registerProperties.isCustomerSaved && (
 							<Field
 								className={inputClassName}
 								name="first_name"
@@ -239,86 +241,85 @@ class Register extends React.Component {
 							/>
 						)} */}
 
-						{!registerProperties.isCustomerSaved && (
-							<Field
-								className={inputClassName}
-								name="email"
-								id="customer.reg_email"
-								component={InputField}
-								type="email"
-								props={
-									registerProperties !== undefined && registerProperties.status
-										? { disabled: true }
-										: this.value
-								}
-								label={this.getFieldLabel('email')}
-								validate={this.getFieldValidators('email')}
-								placeholder={this.getFieldPlaceholder('email')}
-							/>
-						)}
+					{!registerProperties.isCustomerSaved && (
+						<Field
+							className={inputClassName}
+							name="email"
+							id="customer.reg_email"
+							component={InputField}
+							type="email"
+							props={
+								registerProperties !== undefined && registerProperties.status
+									? { disabled: true }
+									: this.value
+							}
+							label={this.getFieldLabel('email')}
+							validate={this.getFieldValidators('email')}
+							placeholder={this.getFieldPlaceholder('email')}
+						/>
+					)}
 
-						{!registerProperties.isCustomerSaved && (
-							<Field
-								className={inputClassName}
-								name="password"
-								id="customer.reg_password"
-								component={InputField}
-								type="password"
-								props={
-									registerProperties !== undefined && registerProperties.status
-										? { disabled: true }
-										: this.value
-								}
-								label={this.getFieldLabel('password')}
-								onBlur={this.passwordTemp}
-								validate={this.getFieldValidators('password')}
-								placeholder={this.getFieldPlaceholder('password')}
-							/>
-						)}
+					{!registerProperties.isCustomerSaved && (
+						<Field
+							className={inputClassName}
+							name="password"
+							id="customer.reg_password"
+							component={InputField}
+							type="password"
+							props={
+								registerProperties !== undefined && registerProperties.status
+									? { disabled: true }
+									: this.value
+							}
+							label={this.getFieldLabel('password')}
+							onBlur={this.passwordTemp}
+							validate={this.getFieldValidators('password')}
+							placeholder={this.getFieldPlaceholder('password')}
+						/>
+					)}
 
-						{!registerProperties.isCustomerSaved && (
-							<Field
-								className={inputClassName}
-								name="password_verify"
-								id="customer.reg_password_verify"
-								component={InputField}
-								type="password"
-								props={
-									registerProperties !== undefined && registerProperties.status
-										? { disabled: true }
-										: this.value
-								}
-								label={this.getFieldLabel('password_verify')}
-								validate={this.getFieldValidators('password_verify')}
-								placeholder={this.getFieldPlaceholder('password_verify')}
-							/>
-						)}
+					{!registerProperties.isCustomerSaved && (
+						<Field
+							className={inputClassName}
+							name="password_verify"
+							id="customer.reg_password_verify"
+							component={InputField}
+							type="password"
+							props={
+								registerProperties !== undefined && registerProperties.status
+									? { disabled: true }
+									: this.value
+							}
+							label={this.getFieldLabel('password_verify')}
+							validate={this.getFieldValidators('password_verify')}
+							placeholder={this.getFieldPlaceholder('password_verify')}
+						/>
+					)}
 
-						<div className="login-button-wrap">
-							{!registerProperties.isCustomerSaved && (
-								<button
-									type="submit"
-									className={registerButtonClassName}
-									disabled={
-										registerProperties !== undefined &&
-										registerProperties.status
-									}
-								>
-									{text.register}
-								</button>
-							)}
-							{registerProperties.isCustomerSaved && (
-								<Link
-									to="/login"
-									style={{ textDecoration: 'none' }}
-									key={'back-to-login'}
-									className={loginButtonClass}
-								>
-									{text.back_to_login}
-								</Link>
-							)}
-						</div>
+					<div className="login-button-wrap">
+						{!registerProperties.isCustomerSaved && (
+							<button
+								type="submit"
+								className={registerButtonClassName}
+								disabled={
+									registerProperties !== undefined && registerProperties.status
+								}
+							>
+								{text.register}
+							</button>
+						)}
+						{registerProperties.isCustomerSaved && (
+							<Link
+								to="/login"
+								style={{ textDecoration: 'none' }}
+								key={'back-to-login'}
+								className={loginButtonClass}
+							>
+								{text.back_to_login}
+							</Link>
+						)}
 					</div>
+					{/* </div> */}
 				</form>
 			</div>
 		);
