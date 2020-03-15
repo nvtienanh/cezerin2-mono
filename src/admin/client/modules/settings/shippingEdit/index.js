@@ -33,59 +33,106 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 								required: true
 							},
 							{
-								key: 'address1',
+								key: 'phone',
 								label: '',
 								required: true
 							},
 							{
-								key: 'address2',
+								key: 'province',
 								label: '',
-								required: false
+								required: true
 							},
 							{
-								key: 'postal_code',
+								key: 'district',
 								label: '',
-								required: false
+								required: true
 							},
 							{
-								key: 'phone',
+								key: 'ward',
 								label: '',
-								required: false
+								required: true
+							},
+							{
+								key: 'address1',
+								label: '',
+								required: true
 							}
+							// {
+							// 	key: 'address2',
+							// 	label: '',
+							// 	required: false
+							// },
+							// {
+							// 	key: 'postal_code',
+							// 	label: '',
+							// 	required: false
+							// },
 						]
 					})
 				);
 			}
 		},
 		onSubmit: method => {
+			// if (method.conditions) {
+			// 	if (
+			// 		method.conditions.countries &&
+			// 		!Array.isArray(method.conditions.countries)
+			// 	) {
+			// 		const countriesStr = method.conditions.countries;
+			// 		method.conditions.countries = countriesStr
+			// 			.split(',')
+			// 			.map(item => item.trim().toUpperCase())
+			// 			.filter(item => item.length === 2);
+			// 	}
+
+			// 	if (
+			// 		method.conditions.states &&
+			// 		!Array.isArray(method.conditions.states)
+			// 	) {
+			// 		const statesStr = method.conditions.states;
+			// 		method.conditions.states = statesStr
+			// 			.split(',')
+			// 			.map(item => item.trim());
+			// 	}
+
+			// 	if (
+			// 		method.conditions.cities &&
+			// 		!Array.isArray(method.conditions.cities)
+			// 	) {
+			// 		const citiesStr = method.conditions.cities;
+			// 		method.conditions.cities = citiesStr
+			// 			.split(',')
+			// 			.map(item => item.trim());
+			// 	}
+			// }
 			if (method.conditions) {
 				if (
-					method.conditions.countries &&
-					!Array.isArray(method.conditions.countries)
+					method.conditions.provinces &&
+					!Array.isArray(method.conditions.provinces)
 				) {
-					const countriesStr = method.conditions.countries;
-					method.conditions.countries = countriesStr
+					const provincesStr = method.conditions.provinces;
+					method.conditions.provinces = provincesStr
 						.split(',')
 						.map(item => item.trim().toUpperCase())
 						.filter(item => item.length === 2);
 				}
 
 				if (
-					method.conditions.states &&
-					!Array.isArray(method.conditions.states)
+					method.conditions.districts &&
+					!Array.isArray(method.conditions.districts)
 				) {
-					const statesStr = method.conditions.states;
-					method.conditions.states = statesStr
+					const districtsStr = method.conditions.districts;
+					method.conditions.districts = districtsStr
 						.split(',')
 						.map(item => item.trim());
 				}
 
 				if (
-					method.conditions.cities &&
-					!Array.isArray(method.conditions.cities)
+					method.conditions.wards &&
+					!Array.isArray(method.conditions.wards)
 				) {
-					const citiesStr = method.conditions.cities;
-					method.conditions.cities = citiesStr
+					const wardsStr = method.conditions.wards;
+					method.conditions.wards = wardsStr
 						.split(',')
 						.map(item => item.trim());
 				}
@@ -101,7 +148,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 	};
 };
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

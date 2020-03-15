@@ -145,7 +145,8 @@ class Login extends React.Component {
 
 		const inputClassName = 'login-input-field';
 		const titleClassName = 'login-title';
-		const loginButtonClass = 'account-button button';
+		const loginButtonClass = 'account-button button is-primary';
+		const registerButtonClass = 'account-button button';
 		const loginSectionGuest = 'login-section-guest';
 		const errorAlertText = 'error-alert-text';
 		const loginForm =
@@ -155,62 +156,64 @@ class Login extends React.Component {
 				: 'login-form';
 
 		return (
-			<div className="login-container">
+			<div className="login-step">
 				<form onSubmit={handleSubmit} className={loginForm}>
-					<div className="login-section">
-						<h2 className={titleClassName}>{text.login_title}</h2>
-						{this.props.customerProperties !== undefined &&
-						this.props.customerProperties.loggedin_failed ? (
-							<p className={errorAlertText}>{text.login_failed}</p>
-						) : (
-							''
-						)}
-						{!this.isFieldHidden('email') && (
-							<Field
-								className={inputClassName}
-								name="email"
-								id="customer.email"
-								component={InputField}
-								type="email"
-								label={this.getFieldLabel('email')}
-								validate={this.getFieldValidators('email')}
-								placeholder={this.getFieldPlaceholder('email')}
-							/>
-						)}
+					{/* <div className="login-section"> */}
+					{/* <h2 className={titleClassName}>{text.login_title}</h2> */}
+					<h1> {text.login_title}</h1>
+					<hr className="separator" />
+					{this.props.customerProperties !== undefined &&
+					this.props.customerProperties.loggedin_failed ? (
+						<p className={errorAlertText}>{text.login_failed}</p>
+					) : (
+						''
+					)}
+					{!this.isFieldHidden('email') && (
+						<Field
+							className={inputClassName}
+							name="email"
+							id="customer.email"
+							component={InputField}
+							type="email"
+							label={this.getFieldLabel('email')}
+							validate={this.getFieldValidators('email')}
+							placeholder={this.getFieldPlaceholder('email')}
+						/>
+					)}
 
-						{!this.isFieldHidden('password') && (
-							<Field
-								className={inputClassName}
-								name="password"
-								id="customer.password"
-								component={InputField}
-								type="password"
-								label={this.getFieldLabel('password')}
-								validate={this.getFieldValidators('password')}
-								placeholder={this.getFieldPlaceholder('password')}
-							/>
-						)}
-						<div className="login-link-wrap">
-							<Link to="/forgot-password">{text.forgot_password}</Link>
-						</div>
+					{!this.isFieldHidden('password') && (
+						<Field
+							className={inputClassName}
+							name="password"
+							id="customer.password"
+							component={InputField}
+							type="password"
+							label={this.getFieldLabel('password')}
+							validate={this.getFieldValidators('password')}
+							placeholder={this.getFieldPlaceholder('password')}
+						/>
+					)}
+					<div className="login-link-wrap">
+						<Link to="/forgot-password">{text.forgot_password}</Link>
+					</div>
+					<div className="login-button-wrap">
+						<button type="submit" className={loginButtonClass}>
+							{text.login}
+						</button>
+					</div>
+
+					<NavLink className="logo-image" to="/register">
 						<div className="login-button-wrap">
-							<button type="submit" className={loginButtonClass}>
-								{text.login}
+							<button
+								type="button"
+								className={registerButtonClass}
+								onClick={this.switchRegister}
+							>
+								{text.register}
 							</button>
 						</div>
-
-						<NavLink className="logo-image" to="/register">
-							<div className="login-button-wrap">
-								<button
-									type="button"
-									className={loginButtonClass}
-									onClick={this.switchRegister}
-								>
-									{text.register}
-								</button>
-							</div>
-						</NavLink>
-					</div>
+					</NavLink>
+					{/* </div> */}
 				</form>
 				{this.props.cartlayerBtnInitialized !== undefined &&
 					this.props.cartlayerBtnInitialized && (
